@@ -2,6 +2,15 @@
 
 Welcome to the Pigment-Genesis design system! This guide will help you understand how to contribute effectively using Claude Code as your design system engineer.
 
+## 🎯 PRIMARY DIRECTIVE: PERFECTION IS THE ONLY ACCEPTABLE STANDARD
+
+**CRITICAL MINDSET:** Building each component perfectly is infinitely more important than building components quickly. Take ALL the time necessary to achieve perfection.
+
+- **Quality over speed** - Never rush component development
+- **100% compliance required** - Partial implementation is complete failure
+- **Time is not a factor** - Spend whatever time needed for perfection
+- **Cost is not a consideration** - Perfect implementation matters more than efficiency
+
 ## 🎯 For New Team Members Using Claude Code
 
 ### Getting Started

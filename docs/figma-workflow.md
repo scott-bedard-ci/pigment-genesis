@@ -2,6 +2,17 @@
 
 This document outlines the step-by-step process for integrating Figma designs into the Pigment Genesis design system using Claude Code.
 
+## 🎯 PRIMARY DIRECTIVE: PERFECTION IS THE ONLY ACCEPTABLE STANDARD
+
+**CRITICAL MINDSET:** Building each component perfectly is infinitely more important than building components quickly. Take ALL the time necessary to achieve perfection.
+
+**FIGMA ANALYSIS REQUIREMENTS:**
+- **100% thoroughness** - Inspect every design property systematically  
+- **Unlimited time allowed** - Never rush Figma frame analysis
+- **Unlimited tool calls** - Use as many as needed for complete extraction
+- **Zero assumptions** - Every measurement must come from Figma
+- **Perfect documentation** - Record every extracted property
+
 ## 🎯 Overview
 
 The Figma-first approach ensures:

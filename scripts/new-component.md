@@ -2,6 +2,21 @@
 
 This checklist ensures every new component follows the Pigment Genesis standards and integrates properly with the design system.
 
+## 🎯 PRIMARY DIRECTIVE: PERFECTION IS THE ONLY ACCEPTABLE STANDARD
+
+**CRITICAL MINDSET:** Building each component perfectly is infinitely more important than building components quickly. Take ALL the time necessary to achieve perfection.
+
+**QUALITY REQUIREMENTS:**
+- **100% Figma fidelity** - Every pixel must match exactly
+- **100% documentation compliance** - Every checklist item must be completed
+- **100% design token usage** - No shortcuts or hardcoded values
+- **100% test coverage** - Every interaction must be tested
+
+**TIME & COST ARE NOT FACTORS:**
+- Take unlimited time for thorough Figma analysis
+- Use unlimited tool calls for complete property extraction
+- Never rush any step - quality is the only measure of success
+
 ## 🚨 CRITICAL: Design-First Approach
 
 ### Before Starting Development
@@ -123,15 +138,25 @@ src/components/[level]/ComponentName/
 - [ ] **All variants and sizes tested** comprehensively
 - [ ] **Responsive behavior tested** across breakpoints
 
-#### 4.2 Manual Testing Checklist
-- [ ] **Visual comparison with Figma** (95%+ pixel accuracy)
-- [ ] **All interactive states work** (hover, focus, active, disabled)
+#### 4.2 Automated Visual Verification (Claude Code)
+- [ ] **🚨 MANDATORY: Claude runs visual verification**: `npm run claude-visual-verify ComponentName`
+- [ ] **Screenshots captured automatically** for Claude analysis
+- [ ] **Claude analyzes screenshots** using Read tool to verify:
+  - [ ] **Pixel-perfect accuracy** against Figma designs (95%+ required)
+  - [ ] **Design token usage** (no hardcoded values visible)
+  - [ ] **Interactive states rendering** correctly
+  - [ ] **Responsive behavior** at mobile and desktop viewports
+  - [ ] **Visual consistency** with design system standards
+- [ ] **Claude approval required** before proceeding to next phase
+- [ ] **Issues flagged immediately** if accuracy < 95%
+
+#### 4.3 Manual Testing Checklist
 - [ ] **Keyboard navigation functional** (Tab, Enter, Space, Escape)
 - [ ] **Screen reader compatibility** tested
 - [ ] **Touch targets work on mobile** (minimum 44px)
-- [ ] **Responsive behavior verified** across devices
+- [ ] **All interactive states work** (hover, focus, active, disabled)
 
-#### 4.3 Cross-Browser Testing
+#### 4.4 Cross-Browser Testing
 - [ ] **Chrome** - Component renders and functions correctly
 - [ ] **Firefox** - Component renders and functions correctly  
 - [ ] **Safari** - Component renders and functions correctly

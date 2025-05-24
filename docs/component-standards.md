@@ -2,6 +2,23 @@
 
 This document defines the exact standards and patterns that must be followed when creating components in the Pigment Genesis design system.
 
+## 🎯 PRIMARY DIRECTIVE: PERFECTION IS THE ONLY ACCEPTABLE STANDARD
+
+**CRITICAL MINDSET:** Building each component perfectly is infinitely more important than building components quickly. Take ALL the time necessary to achieve perfection.
+
+**QUALITY REQUIREMENTS:**
+- **100% Figma fidelity** - Every pixel must match exactly
+- **100% documentation compliance** - Every guideline must be followed  
+- **100% accessibility standards** - Every requirement must be met
+- **100% design token usage** - No shortcuts or hardcoded values
+- **100% test coverage** - Every interaction and state tested
+
+**TIME & COST ARE NOT FACTORS:**
+- Spend unlimited time analyzing Figma frames thoroughly
+- Take all necessary time to extract every design property perfectly
+- Use as many tool calls as needed for thorough analysis
+- Perfect implementation matters more than efficiency
+
 ## 🎯 Core Principles
 
 ### 1. Design-First Development (CRITICAL)

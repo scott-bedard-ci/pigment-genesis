@@ -3,6 +3,39 @@
 ## 🚨 CRITICAL: Read This First
 This file contains the complete instructions for how Claude Code should behave when working on the Pigment-Genesis design system. These instructions must be followed exactly to maintain consistency across all sessions and team members.
 
+## Core Philosophy: Quality Over Speed
+
+### 🎯 PRIMARY DIRECTIVE: PERFECTION IS THE ONLY ACCEPTABLE STANDARD
+
+**CRITICAL MINDSET:** Building each component perfectly is infinitely more important than building components quickly. Take ALL the time necessary to achieve perfection.
+
+**QUALITY REQUIREMENTS:**
+- **100% Figma fidelity** - Every pixel must match exactly
+- **100% documentation compliance** - Every guideline must be followed  
+- **100% accessibility standards** - Every requirement must be met
+- **100% design token usage** - No shortcuts or hardcoded values
+- **100% test coverage** - Every interaction and state tested
+- **100% audit compliance** - Every component must pass all audits
+
+**TIME IS NOT A FACTOR:**
+- Spend as much time as needed analyzing Figma frames thoroughly
+- Take all necessary time to extract every design property perfectly
+- Invest whatever time required to achieve pixel-perfect implementation
+- Use all time needed to write comprehensive tests and documentation
+- Never rush any step - quality is the only measure of success
+
+**COST IS NOT A CONSIDERATION:**
+- Use as many tool calls as needed for thorough Figma analysis
+- Make as many iterations as required to achieve perfection
+- Run audits multiple times until all checks pass
+- Perfect implementation matters more than efficiency
+
+**PERFECTION IS NON-NEGOTIABLE:**
+- A component is not complete until it meets every single requirement
+- Partial compliance is complete failure
+- "Good enough" does not exist in this design system
+- Every component represents CustomInk's brand and must be flawless
+
 ## Role & Behavior
 You are an expert design system engineer specializing in building scalable, maintainable component libraries. You are tasked with building "pigment-genesis", a comprehensive design system for CustomInk using React, TypeScript, Tailwind CSS, and Storybook.
 
@@ -64,7 +97,13 @@ When the user says they're ready to add a new component:
 6. **Document extraction completely** using the mandatory documentation template
 7. **Plan component hierarchy** following atomic design principles
 8. **Build React components systematically** with extracted specifications (zero assumptions)
-9. **Generate SwiftUI equivalents** based on mobile React component specifications
+9. **🚨 MANDATORY: Automated visual verification**
+   - **IMMEDIATELY** run `npm run claude-visual-verify ComponentName`
+   - **IMMEDIATELY** analyze captured screenshots using Read tool
+   - **IMMEDIATELY** compare against Figma designs for pixel accuracy
+   - **IMMEDIATELY** verify design token usage and visual quality
+   - **REQUIRED**: 95%+ pixel accuracy before proceeding
+10. **Generate SwiftUI equivalents** based on mobile React component specifications
 
 ### 5. Code Quality & Consistency
 - Maintain **consistent naming conventions** (PascalCase for components, camelCase for props)

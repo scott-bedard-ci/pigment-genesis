@@ -10,14 +10,18 @@ export const colors = {
   // Interactive colors - EXTRACTED from Figma
   interactive: {
     background: {
-      bold: '#1e39d2'  // Figma: interactive/background/bold - Selected checkbox background
+      bold: '#1e39d2',               // Figma: interactive/background/bold - Primary button background
+      boldHover: '#182ea8',          // Figma: interactive/background/boldHover - Primary button hover
+      boldPressed: '#132486',        // Figma: interactive/background/boldPressed - Primary button pressed
+      boldDisabled: 'rgba(0,0,0,0.18)' // Figma: interactive/background/boldDisabled - Disabled button
     },
     border: {
       strong: 'rgba(0,0,0,0.74)',    // Figma: interactive/border/strong - Default checkbox border
       disabled: 'rgba(0,0,0,0.03)'   // Figma: interactive/border/disabled - Disabled checkbox border
     },
     text: {
-      disabled: 'rgba(0,0,0,0.41)'   // Figma: interactive/text/disabled - Disabled label text
+      onFill: '#ffffff',             // Figma: interactive/text/onFill - Button text on colored backgrounds
+      disabled: 'rgba(0,0,0,0.41)'   // Figma: interactive/text/disabled - Disabled text
     }
   },
 
@@ -30,14 +34,19 @@ export const colors = {
       onFill: '#ffffff'             // Figma: neutral/icon/onFill - Checkmark color
     },
     gray: {
-      500: '#969696'               // Figma: primitives/color/neutral/gray-500
+      000: '#ffffff',               // Figma: primitives/color/neutral/gray-000 - White backgrounds
+      500: '#969696',               // Figma: primitives/color/neutral/gray-500 - Dividers
+      700: '#4a4a4a'                // Figma: primitives/color/neutral/gray-700 - Helper text
     }
   },
 
   // Primitive colors - EXTRACTED from Figma
   primitives: {
     red: {
-      default: '#fa3c00'           // Figma: primitives/color/red/default - Accent color
+      default: '#fa3c00'           // Figma: primitives/color/red/default - Tertiary button color
+    },
+    blue: {
+      default: '#1e39d2'           // Figma: primitives/color/blue/default - Secondary button border/text
     }
   },
 
@@ -78,22 +87,29 @@ export const colors = {
 
 // Token metadata for tracking Figma sync
 export const colorTokenMetadata = {
-  figmaFileId: 'checkbox-component-frame',
-  lastSync: '2025-05-24T00:45:00Z',
-  tokenCount: 8,  // 8 tokens extracted from Figma
-  version: '1.0.0',
+  figmaFileId: 'button-component-frame',
+  lastSync: '2025-05-24T16:45:00Z',
+  tokenCount: 15,  // 15 tokens extracted from Figma
+  version: '1.1.0',
   isExtracted: true,   // ✅ EXTRACTED: Tokens ready for use
   placeholderMode: false, // ✅ PRODUCTION: Real Figma tokens active
-  sourceFrame: 'Checkbox component documentation frame',
+  sourceFrame: 'Checkbox + Button component documentation frames',
   extractedTokens: [
     'interactive.background.bold',
+    'interactive.background.boldHover',
+    'interactive.background.boldPressed', 
+    'interactive.background.boldDisabled',
     'interactive.border.strong', 
     'interactive.border.disabled',
+    'interactive.text.onFill',
     'interactive.text.disabled',
     'neutral.text.primary',
     'neutral.icon.onFill',
+    'neutral.gray.000',
     'neutral.gray.500',
-    'primitives.red.default'
+    'neutral.gray.700',
+    'primitives.red.default',
+    'primitives.blue.default'
   ]
 } as const;
 

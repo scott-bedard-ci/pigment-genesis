@@ -27,11 +27,26 @@ export const componentSpacing = {
     borderRadius: '2.75px' // Figma: Checkbox border radius
   },
   
-  // Button padding - Future components
+  // Button spacing - EXTRACTED from Figma
   button: {
-    sm: { x: '12px', y: '6px' },
-    md: { x: '16px', y: '8px' },
-    lg: { x: '24px', y: '12px' }
+    small: { 
+      height: '32px',     // Figma: Small button height
+      paddingX: '16px',   // Figma: Small button horizontal padding
+      paddingY: '6px'     // Figma: Small button vertical padding
+    },
+    medium: { 
+      height: '40px',     // Figma: Medium button height
+      paddingX: '16px',   // Figma: Medium button horizontal padding
+      paddingY: '8px'     // Figma: Medium button vertical padding
+    },
+    large: { 
+      height: '48px',     // Figma: Large button height
+      paddingX: '16px',   // Figma: Large button horizontal padding
+      paddingY: '12px'    // Figma: Large button vertical padding
+    },
+    iconGap: '8px',       // Figma: Gap between icon and text
+    minWidth: '64px',     // Figma: Minimum button width
+    borderRadius: '6px'   // Figma: Button border radius (radius/button)
   },
   
   // Input padding - Future components
@@ -67,18 +82,26 @@ export const gap = {
 
 // Token metadata for tracking Figma sync
 export const spacingTokenMetadata = {
-  figmaFileId: 'checkbox-component-frame',
-  lastSync: '2025-05-24T00:45:00Z',
-  tokenCount: 4,       // 4 checkbox-specific spacing tokens extracted
-  version: '1.0.0',
+  figmaFileId: 'button-component-frame',
+  lastSync: '2025-05-24T16:45:00Z',
+  tokenCount: 12,      // 12 component-specific spacing tokens extracted
+  version: '1.1.0',
   isExtracted: true,   // ✅ EXTRACTED: Tokens ready for use
   placeholderMode: false, // ✅ PRODUCTION: Real Figma tokens active
-  sourceFrame: 'Checkbox component documentation frame',
+  sourceFrame: 'Checkbox + Button component documentation frames',
   extractedTokens: [
     'checkbox.size',
     'checkbox.containerHeight',
     'checkbox.labelGap',
-    'checkbox.borderRadius'
+    'checkbox.borderRadius',
+    'button.small.height',
+    'button.medium.height',
+    'button.large.height',
+    'button.iconGap',
+    'button.minWidth',
+    'button.borderRadius',
+    'button.paddingX',
+    'button.paddingY'
   ]
 } as const;
 

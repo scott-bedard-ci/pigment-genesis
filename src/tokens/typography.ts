@@ -22,7 +22,10 @@ export const typography = {
     'body-lg': '16px',      // Large body text
     'body-md': '14px',      // Figma: Label text size for checkbox
     'body-sm': '12px',      // Small body text
-    'caption': '10px'       // Caption text
+    'caption': '10px',      // Caption text
+    'button-lg': '16px',    // Figma: Large button text size
+    'button-md': '14px',    // Figma: Medium button text size
+    'button-sm': '12px'     // Figma: Small button text size
   },
 
   // Line heights - EXTRACTED from Figma
@@ -34,7 +37,10 @@ export const typography = {
     'body-lg': '24px',      // Large body line height
     'body-md': '1.25',      // Figma: 1.25 line height for checkbox labels
     'body-sm': '16px',      // Small body line height
-    'caption': '14px'       // Caption line height
+    'caption': '14px',      // Caption line height
+    'button-lg': '20px',    // Figma: Large button line height
+    'button-md': '18px',    // Figma: Medium button line height
+    'button-sm': '16px'     // Figma: Small button line height
   },
 
   // Font weights - EXTRACTED from Figma
@@ -42,7 +48,7 @@ export const typography = {
     light: 300,
     regular: 400,
     medium: 500,     // Figma: Sharp Sans Medium for checkbox labels
-    semibold: 600,
+    semibold: 600,   // Figma: Sharp Sans Semibold for button text
     bold: 700
   },
 
@@ -111,22 +117,50 @@ export const textStyles = {
     lineHeight: typography.lineHeight.caption,
     fontWeight: typography.fontWeight.medium,
     letterSpacing: typography.letterSpacing.normal
+  },
+  'button-lg': {
+    fontFamily: typography.fontFamily.body,
+    fontSize: typography.fontSize['button-lg'],
+    lineHeight: typography.lineHeight['button-lg'],
+    fontWeight: typography.fontWeight.semibold,
+    letterSpacing: typography.letterSpacing.normal
+  },
+  'button-md': {
+    fontFamily: typography.fontFamily.body,
+    fontSize: typography.fontSize['button-md'],
+    lineHeight: typography.lineHeight['button-md'],
+    fontWeight: typography.fontWeight.semibold,
+    letterSpacing: typography.letterSpacing.normal
+  },
+  'button-sm': {
+    fontFamily: typography.fontFamily.body,
+    fontSize: typography.fontSize['button-sm'],
+    lineHeight: typography.lineHeight['button-sm'],
+    fontWeight: typography.fontWeight.semibold,
+    letterSpacing: typography.letterSpacing.normal
   }
 } as const;
 
 // Token metadata for tracking Figma sync
 export const typographyTokenMetadata = {
-  figmaFileId: 'checkbox-component-frame',
-  lastSync: '2025-05-24T00:45:00Z',
-  tokenCount: 3,       // 3 typography tokens extracted from Figma
-  version: '1.0.0',
+  figmaFileId: 'button-component-frame',
+  lastSync: '2025-05-24T16:45:00Z',
+  tokenCount: 9,       // 9 typography tokens extracted from Figma
+  version: '1.1.0',
   isExtracted: true,   // ✅ EXTRACTED: Tokens ready for use
   placeholderMode: false, // ✅ PRODUCTION: Real Figma tokens active
-  sourceFrame: 'Checkbox component documentation frame',
+  sourceFrame: 'Checkbox + Button component documentation frames',
   extractedTokens: [
     'fontFamily.body (Sharp Sans)',
     'fontSize.body-md (14px)',
-    'lineHeight.body-md (1.25)'
+    'lineHeight.body-md (1.25)',
+    'fontSize.button-lg (16px)',
+    'fontSize.button-md (14px)',
+    'fontSize.button-sm (12px)',
+    'lineHeight.button-lg (20px)',
+    'lineHeight.button-md (18px)',
+    'lineHeight.button-sm (16px)',
+    'fontWeight.semibold (600)'
   ]
 } as const;
 
