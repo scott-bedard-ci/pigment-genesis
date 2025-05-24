@@ -1,0 +1,25 @@
+{
+  "$comment": "Raw Figma design token data - AUTO-GENERATED",
+  "$schema": "https://schemas.figma.com/design-tokens/v1.0.0/schema.json",
+  "metadata": {
+    "figmaFileId": "",
+    "lastSync": "",
+    "extractedBy": "pigment-genesis-token-extractor",
+    "version": "1.0.0"
+  },
+  "colors": {
+    "$comment": "Color tokens will be populated from Figma when extracted"
+  },
+  "spacing": {
+    "$comment": "Spacing tokens will be populated from Figma when extracted"
+  },
+  "typography": {
+    "$comment": "Typography tokens will be populated from Figma when extracted"
+  },
+  "effects": {
+    "$comment": "Effect tokens (shadows, blur, etc.) will be populated from Figma when extracted"
+  },
+  "borders": {
+    "$comment": "Border tokens will be populated from Figma when extracted"
+  }
+}

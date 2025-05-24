@@ -1,0 +1,305 @@
+/* Global styles for Pigment Genesis Design System */
+/* This file contains CSS custom properties (design tokens) and global styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design Token CSS Custom Properties */
+/* These are automatically generated from Figma design tokens */
+:root {
+  /* Color tokens - will be populated from Figma */
+  --pigment-primary-50: 240 244 255;   /* #f0f4ff */
+  --pigment-primary-100: 224 233 255;  /* #e0e9ff */
+  --pigment-primary-200: 199 210 254;  /* #c7d2fe */
+  --pigment-primary-300: 165 180 252;  /* #a5b4fc */
+  --pigment-primary-400: 129 140 248;  /* #818cf8 */
+  --pigment-primary-500: 59 130 246;   /* #3b82f6 */
+  --pigment-primary-600: 37 99 235;    /* #2563eb */
+  --pigment-primary-700: 29 78 216;    /* #1d4ed8 */
+  --pigment-primary-800: 30 64 175;    /* #1e40af */
+  --pigment-primary-900: 30 58 138;    /* #1e3a8a */
+  --pigment-primary-950: 23 37 84;     /* #172554 */
+
+  --pigment-secondary-50: 253 244 255;  /* #fdf4ff */
+  --pigment-secondary-100: 250 232 255; /* #fae8ff */
+  --pigment-secondary-200: 245 208 254; /* #f5d0fe */
+  --pigment-secondary-300: 240 171 252; /* #f0abfc */
+  --pigment-secondary-400: 232 121 249; /* #e879f9 */
+  --pigment-secondary-500: 168 85 247;  /* #a855f7 */
+  --pigment-secondary-600: 147 51 234;  /* #9333ea */
+  --pigment-secondary-700: 124 58 237;  /* #7c3aed */
+  --pigment-secondary-800: 107 33 168;  /* #6b21a8 */
+  --pigment-secondary-900: 88 28 135;   /* #581c87 */
+  --pigment-secondary-950: 59 7 100;    /* #3b0764 */
+
+  --pigment-success-50: 240 253 244;    /* #f0fdf4 */
+  --pigment-success-500: 16 185 129;    /* #10b981 */
+  --pigment-success-900: 6 78 59;       /* #064e3b */
+
+  --pigment-warning-50: 255 251 235;    /* #fffbeb */
+  --pigment-warning-500: 245 158 11;    /* #f59e0b */
+  --pigment-warning-900: 120 53 15;     /* #78350f */
+
+  --pigment-error-50: 254 242 242;      /* #fef2f2 */
+  --pigment-error-500: 239 68 68;       /* #ef4444 */
+  --pigment-error-900: 127 29 29;       /* #7f1d1d */
+
+  --pigment-neutral-50: 249 250 251;    /* #f9fafb */
+  --pigment-neutral-100: 243 244 246;   /* #f3f4f6 */
+  --pigment-neutral-200: 229 231 235;   /* #e5e7eb */
+  --pigment-neutral-300: 209 213 219;   /* #d1d5db */
+  --pigment-neutral-400: 156 163 175;   /* #9ca3af */
+  --pigment-neutral-500: 107 114 128;   /* #6b7280 */
+  --pigment-neutral-600: 75 85 99;      /* #4b5563 */
+  --pigment-neutral-700: 55 65 81;      /* #374151 */
+  --pigment-neutral-800: 31 41 55;      /* #1f2937 */
+  --pigment-neutral-900: 17 24 39;      /* #111827 */
+  --pigment-neutral-950: 3 7 18;        /* #030712 */
+
+  /* Spacing tokens - will be populated from Figma */
+  --pigment-spacing-xs: 4px;
+  --pigment-spacing-sm: 8px;
+  --pigment-spacing-md: 16px;
+  --pigment-spacing-lg: 24px;
+  --pigment-spacing-xl: 32px;
+  --pigment-spacing-2xl: 48px;
+  --pigment-spacing-3xl: 64px;
+
+  /* Typography tokens - will be populated from Figma */
+  --pigment-font-family-heading: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --pigment-font-family-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --pigment-font-family-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --pigment-font-size-heading-xl: 48px;
+  --pigment-font-size-heading-lg: 36px;
+  --pigment-font-size-heading-md: 24px;
+  --pigment-font-size-heading-sm: 20px;
+  --pigment-font-size-body-lg: 18px;
+  --pigment-font-size-body-md: 16px;
+  --pigment-font-size-body-sm: 14px;
+  --pigment-font-size-caption: 12px;
+
+  --pigment-line-height-heading-xl: 56px;
+  --pigment-line-height-heading-lg: 44px;
+  --pigment-line-height-heading-md: 32px;
+  --pigment-line-height-heading-sm: 28px;
+  --pigment-line-height-body-lg: 28px;
+  --pigment-line-height-body-md: 24px;
+  --pigment-line-height-body-sm: 20px;
+  --pigment-line-height-caption: 16px;
+
+  /* Effect tokens - will be populated from Figma */
+  --pigment-border-radius-xs: 2px;
+  --pigment-border-radius-sm: 4px;
+  --pigment-border-radius-md: 6px;
+  --pigment-border-radius-lg: 8px;
+  --pigment-border-radius-xl: 12px;
+
+  --pigment-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pigment-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --pigment-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --pigment-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Base layer styles */
+@layer base {
+  /* Reset and normalize */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--pigment-font-family-body);
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -moz-tab-size: 4;
+    tab-size: 4;
+  }
+
+  body {
+    margin: 0;
+    font-family: inherit;
+    line-height: inherit;
+    color: rgb(var(--pigment-neutral-900));
+    background-color: rgb(var(--pigment-neutral-50));
+  }
+
+  /* Typography base styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--pigment-font-family-heading);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--pigment-font-size-heading-xl);
+    line-height: var(--pigment-line-height-heading-xl);
+  }
+
+  h2 {
+    font-size: var(--pigment-font-size-heading-lg);
+    line-height: var(--pigment-line-height-heading-lg);
+  }
+
+  h3 {
+    font-size: var(--pigment-font-size-heading-md);
+    line-height: var(--pigment-line-height-heading-md);
+  }
+
+  h4 {
+    font-size: var(--pigment-font-size-heading-sm);
+    line-height: var(--pigment-line-height-heading-sm);
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--pigment-font-size-body-md);
+    line-height: var(--pigment-line-height-body-md);
+  }
+
+  /* Form elements */
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  button, select {
+    text-transform: none;
+  }
+
+  button, [type='button'], [type='reset'], [type='submit'] {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    outline: 2px solid rgb(var(--pigment-primary-500));
+    outline-offset: 2px;
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --pigment-primary-500: 0 0 0;
+      --pigment-neutral-900: 0 0 0;
+      --pigment-neutral-50: 255 255 255;
+    }
+  }
+
+  /* Dark mode support (future enhancement) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Dark mode color tokens will be added here */
+    }
+  }
+}
+
+/* Component layer styles */
+@layer components {
+  /* Utility classes for common patterns */
+  .pigment-focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+  }
+
+  .pigment-touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  .pigment-transition {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+
+  .pigment-disabled {
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Container query utilities (future enhancement) */
+  .pigment-container {
+    container-type: inline-size;
+  }
+}
+
+/* Utilities layer */
+@layer utilities {
+  /* Custom utilities for design system */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Responsive typography utilities */
+  .text-responsive-sm {
+    font-size: var(--pigment-font-size-body-sm);
+    line-height: var(--pigment-line-height-body-sm);
+  }
+
+  @media (min-width: 768px) {
+    .text-responsive-sm {
+      font-size: var(--pigment-font-size-body-md);
+      line-height: var(--pigment-line-height-body-md);
+    }
+  }
+
+  .text-responsive-md {
+    font-size: var(--pigment-font-size-body-md);
+    line-height: var(--pigment-line-height-body-md);
+  }
+
+  @media (min-width: 768px) {
+    .text-responsive-md {
+      font-size: var(--pigment-font-size-body-lg);
+      line-height: var(--pigment-line-height-body-lg);
+    }
+  }
+
+  .text-responsive-lg {
+    font-size: var(--pigment-font-size-body-lg);
+    line-height: var(--pigment-line-height-body-lg);
+  }
+
+  @media (min-width: 768px) {
+    .text-responsive-lg {
+      font-size: var(--pigment-font-size-heading-sm);
+      line-height: var(--pigment-line-height-heading-sm);
+    }
+  }
+}
