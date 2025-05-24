@@ -257,9 +257,11 @@ export type DeepTokenKey<T> = T extends object
     }[keyof T]
   : never;
 
-export type GetTokenValue<T, K extends DeepTokenKey<T>> = K extends `${infer K1}.${infer K2}`
+export type GetTokenValue<T, K extends string> = K extends `${infer K1}.${infer K2}`
   ? K1 extends keyof T
-    ? GetTokenValue<T[K1], K2>
+    ? T[K1] extends object
+      ? GetTokenValue<T[K1], K2>
+      : never
     : never
   : K extends keyof T
   ? T[K]

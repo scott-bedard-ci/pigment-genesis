@@ -150,7 +150,7 @@ async function main(): Promise<void> {
 }
 
 // Handle command line execution
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(error => {
     console.error('💥 Script failed:', error);
     process.exit(1);

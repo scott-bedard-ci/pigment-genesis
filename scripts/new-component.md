@@ -71,6 +71,8 @@ Here are the Figma frames for the [ComponentName]:
 ```
 
 #### 2.3 Verify Claude Code Analysis
+- [ ] **🚨 CRITICAL: Figma Node IDs captured FIRST** - before any component building
+- [ ] **`.figmaframes.md` file created** with Node IDs immediately after Figma analysis
 - [ ] **Claude Code confirms Figma access** and can analyze frames
 - [ ] **Design tokens extracted** from Figma successfully  
 - [ ] **Component specifications documented** by Claude Code

@@ -1,6 +1,13 @@
 // Central export for all design tokens
 // This file aggregates all token modules for easy import
 
+import { colors, colorTokenMetadata } from './colors';
+import { spacing, componentSpacing, gap, spacingTokenMetadata } from './spacing';
+import { typography, textStyles, typographyTokenMetadata } from './typography';
+import { breakpoints, breakpointValues, containerMaxWidths, mediaQueries, responsivePatterns } from './breakpoints';
+import { effects, componentEffects, effectsTokenMetadata } from './effects';
+
+// Re-export individual token modules
 export { colors, colorTokenMetadata } from './colors';
 export type { ColorTokens, ColorKey, ColorShade } from './colors';
 
@@ -46,4 +53,4 @@ export const tokenMetadata = {
 
 // Type for the entire token system
 export type Tokens = typeof tokens;
-export type TokenMetadata = typeof tokenMetadata;
+export type GlobalTokenMetadata = typeof tokenMetadata;

@@ -1,17 +1,15 @@
 /** @type {import('jest').Config} */
 export default {
-  preset: 'ts-jest/presets/default-esm',
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
-      useESM: true,
       tsconfig: {
         jsx: 'react-jsx'
       }
     }]
   },
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/tokens/(.*)$': '<rootDir>/src/tokens/$1',

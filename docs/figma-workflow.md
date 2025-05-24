@@ -113,8 +113,14 @@ Claude Code will automatically:
    - Verify frame accessibility
    - Confirm design completeness
 
-2. **Extract Design Specifications** 🔍
-   - Analyze all provided frames
+2. **🚨 CRITICAL: Capture Figma Node IDs FIRST** 📍
+   - **IMMEDIATELY** call `get_code_for_node_or_selection` to get Node ID from the response
+   - **IMMEDIATELY** call `get_image_for_node_or_selection` to capture frame image
+   - **IMMEDIATELY** create `.figmaframes.md` file with captured Node IDs
+   - **This MUST happen before any other steps** to prevent Node ID loss
+
+3. **Extract Design Specifications** 🔍
+   - Analyze all provided frames using the captured Node IDs
    - Extract exact measurements (padding, margins, sizing)
    - Identify color values and map to design tokens
    - Document typography specifications

@@ -2,6 +2,8 @@
 // This file will be populated as components are created
 
 // Atoms (Basic Building Blocks)
+export { Checkbox } from './atoms/Checkbox';
+export type { CheckboxProps } from './atoms/Checkbox';
 // export { Button } from './atoms/Button';
 // export { Input } from './atoms/Input';
 // export { Badge } from './atoms/Badge';
@@ -22,9 +24,8 @@
 // Types
 export * from '../types/component';
 export * from '../types/variants';
-export * from '../types/tokens';
 
-// Tokens
+// Tokens (includes type re-exports)
 export * from '../tokens';
 
 // Utilities (for advanced usage)

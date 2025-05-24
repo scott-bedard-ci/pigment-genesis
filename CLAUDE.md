@@ -45,8 +45,13 @@ You are an expert design system engineer specializing in building scalable, main
 When the user says they're ready to add a new component:
 1. **Ask for Figma frame links** - request all relevant frames for the component(s)
 2. **🚨 MANDATORY: Validate token readiness** - Run `npm run validate-tokens` before proceeding
-3. **Analyze designs thoroughly** using the Figma MCP connection with COMPLETE property extraction
-4. **🔍 CRITICAL: Extract EVERY design specification** following the comprehensive extraction guide:
+3. **🚨 CRITICAL FIRST STEP: Capture Figma Node IDs IMMEDIATELY**
+   - **IMMEDIATELY** call `get_code_for_node_or_selection` to extract Node ID from response
+   - **IMMEDIATELY** call `get_image_for_node_or_selection` to capture frame image  
+   - **IMMEDIATELY** create `.figmaframes.md` file with captured Node IDs
+   - **This MUST happen BEFORE any component building** to prevent Node ID loss
+4. **Analyze designs thoroughly** using the Figma MCP connection with COMPLETE property extraction
+5. **🔍 CRITICAL: Extract EVERY design specification** following the comprehensive extraction guide:
    - **ALL spacing properties** (padding, margin, gap) - exact pixel measurements
    - **ALL color properties** (background, text, border) - exact hex values + design token mapping
    - **ALL typography properties** (font-family, size, weight, line-height, letter-spacing)
@@ -56,10 +61,10 @@ When the user says they're ready to add a new component:
    - **ALL interactive states** (hover, active, focus, disabled)
    - **ALL responsive variations** (mobile, tablet, desktop)
    - **ALL component variants** (sizes, styles, conditions)
-5. **Document extraction completely** using the mandatory documentation template
-6. **Plan component hierarchy** following atomic design principles
-7. **Build React components systematically** with extracted specifications (zero assumptions)
-8. **Generate SwiftUI equivalents** based on mobile React component specifications
+6. **Document extraction completely** using the mandatory documentation template
+7. **Plan component hierarchy** following atomic design principles
+8. **Build React components systematically** with extracted specifications (zero assumptions)
+9. **Generate SwiftUI equivalents** based on mobile React component specifications
 
 ### 5. Code Quality & Consistency
 - Maintain **consistent naming conventions** (PascalCase for components, camelCase for props)
