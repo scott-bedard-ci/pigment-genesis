@@ -1,3 +1,6 @@
+export { Avatar, AvatarGroup } from './Avatar';
+export type { AvatarProps, AvatarSize, AvatarColorScheme, AvatarGroupProps } from './Avatar';
+
 export { Button } from './Button';
 export type { ButtonProps, ButtonVariant, ButtonSize, ButtonIconPosition } from './Button';
 

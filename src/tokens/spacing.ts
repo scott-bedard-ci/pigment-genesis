@@ -48,6 +48,24 @@ export const componentSpacing = {
     minWidth: '64px',     // Figma: Minimum button width
     borderRadius: '6px'   // Figma: Button border radius (radius/button)
   },
+
+  // Avatar spacing - EXTRACTED from Figma
+  avatar: {
+    small: {
+      size: '26px',       // Figma: Small avatar dimensions (width & height)
+      padding: '8px',     // Figma: Internal padding for letter centering
+      borderRadius: '999px' // Figma: Perfect circle (radius/round)
+    },
+    large: {
+      size: '48px',       // Figma: Large avatar dimensions (estimated)
+      padding: '12px',    // Figma: Internal padding for letter centering
+      borderRadius: '999px' // Figma: Perfect circle (radius/round)
+    },
+    group: {
+      overlap: '-3px',    // Figma: Negative spacing for avatar overlap
+      border: '1px'       // Figma: White border thickness on grouped avatars
+    }
+  },
   
   // Input padding - Future components
   input: {

@@ -34,9 +34,9 @@ export const colors = {
       onFill: '#ffffff'             // Figma: neutral/icon/onFill - Checkmark color
     },
     gray: {
-      000: '#ffffff',               // Figma: primitives/color/neutral/gray-000 - White backgrounds
-      500: '#969696',               // Figma: primitives/color/neutral/gray-500 - Dividers
-      700: '#4a4a4a'                // Figma: primitives/color/neutral/gray-700 - Helper text
+      '000': '#ffffff',             // Figma: primitives/color/neutral/gray-000 - White backgrounds
+      '500': '#969696',             // Figma: primitives/color/neutral/gray-500 - Dividers
+      '700': '#4a4a4a'              // Figma: primitives/color/neutral/gray-700 - Helper text
     }
   },
 
@@ -50,38 +50,55 @@ export const colors = {
     }
   },
 
+  // Avatar colors - EXTRACTED from Figma Avatar component frames
+  avatar: {
+    text: '#181818',               // Figma: Avatar letter text color (always same)
+    plus: '#e3e3e3',              // Figma: "+n" avatar background (always gray, never random)
+    backgrounds: [
+      '#ff876e', '#ffc3be', '#b467c8', '#caa2dd', '#52c5b8', '#7addd4',
+      '#a0e9e3', '#6f9bf5', '#9abdfb', '#aeaeae', '#c8c8c8', '#ffdc1e',
+      '#ffe881', '#cbdffe', '#f38289', '#76efbb', '#9ff6d3', '#dfcbee',
+      '#5abc74', '#ffc724', '#ffe586', '#ffaff7', '#cdf2f0', '#eba0a7',
+      '#cefbea', '#fff4c0'
+    ] as const,                    // Figma: Deterministic avatar background colors
+    group: {
+      border: '#ffffff',           // Figma: White stroke on avatars in groups (1px)
+      spacing: -3                  // Figma: Avatar group overlap spacing (-3px)
+    }
+  },
+
   // Extended color palette for future components
   primary: {
-    50: '#f0f4ff',
-    100: '#e0e9ff',
-    200: '#c7d2fe',
-    300: '#a5b4fc',
-    400: '#818cf8',
-    500: '#1e39d2',  // Using Figma interactive/background/bold as primary
-    600: '#1d33b8',
-    700: '#1a2d9f',
-    800: '#172685',
-    900: '#141f6c',
-    950: '#0f1654'
+    '50': '#f0f4ff',
+    '100': '#e0e9ff',
+    '200': '#c7d2fe',
+    '300': '#a5b4fc',
+    '400': '#818cf8',
+    '500': '#1e39d2',  // Using Figma interactive/background/bold as primary
+    '600': '#1d33b8',
+    '700': '#1a2d9f',
+    '800': '#172685',
+    '900': '#141f6c',
+    '950': '#0f1654'
   },
 
   // Future semantic colors (will be populated as needed)
   success: {
-    50: '#f0fdf4',
-    500: '#10b981',
-    900: '#064e3b'
+    '50': '#f0fdf4',
+    '500': '#10b981',
+    '900': '#064e3b'
   },
 
   warning: {
-    50: '#fffbeb',
-    500: '#f59e0b',
-    900: '#78350f'
+    '50': '#fffbeb',
+    '500': '#f59e0b',
+    '900': '#78350f'
   },
 
   error: {
-    50: '#fef2f2',
-    500: '#ef4444',
-    900: '#7f1d1d'
+    '50': '#fef2f2',
+    '500': '#ef4444',
+    '900': '#7f1d1d'
   }
 } as const;
 

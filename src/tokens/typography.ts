@@ -25,7 +25,9 @@ export const typography = {
     'caption': '10px',      // Caption text
     'button-lg': '16px',    // Figma: Large button text size
     'button-md': '14px',    // Figma: Medium button text size
-    'button-sm': '12px'     // Figma: Small button text size
+    'button-sm': '12px',    // Figma: Small button text size
+    'avatar-sm': '11px',    // Figma: Avatar text size for small avatars (26px)
+    'avatar-lg': '16px'     // Figma: Avatar text size for large avatars (estimated)
   },
 
   // Line heights - EXTRACTED from Figma
@@ -40,7 +42,9 @@ export const typography = {
     'caption': '14px',      // Caption line height
     'button-lg': '20px',    // Figma: Large button line height
     'button-md': '18px',    // Figma: Medium button line height
-    'button-sm': '16px'     // Figma: Small button line height
+    'button-sm': '16px',    // Figma: Small button line height
+    'avatar-sm': '14px',    // Figma: Avatar text line height for small avatars
+    'avatar-lg': '20px'     // Figma: Avatar text line height for large avatars
   },
 
   // Font weights - EXTRACTED from Figma
@@ -56,7 +60,8 @@ export const typography = {
   letterSpacing: {
     tight: '-0.025em',
     normal: '0em',
-    wide: '0.025em'
+    wide: '0.025em',
+    avatar: '0.165px'      // Figma: Specific letter spacing for avatar text
   }
 } as const;
 
@@ -138,6 +143,20 @@ export const textStyles = {
     lineHeight: typography.lineHeight['button-sm'],
     fontWeight: typography.fontWeight.semibold,
     letterSpacing: typography.letterSpacing.normal
+  },
+  'avatar-sm': {
+    fontFamily: typography.fontFamily.body,
+    fontSize: typography.fontSize['avatar-sm'],
+    lineHeight: typography.lineHeight['avatar-sm'],
+    fontWeight: typography.fontWeight.medium,
+    letterSpacing: typography.letterSpacing.avatar
+  },
+  'avatar-lg': {
+    fontFamily: typography.fontFamily.body,
+    fontSize: typography.fontSize['avatar-lg'],
+    lineHeight: typography.lineHeight['avatar-lg'],
+    fontWeight: typography.fontWeight.medium,
+    letterSpacing: typography.letterSpacing.avatar
   }
 } as const;
 

@@ -634,6 +634,7 @@ ComponentName.displayName = 'ComponentName';
   - **Spacing**: Extract gap, row-gap, column-gap values from Figma layouts
   - **Sizing**: Extract width, height, min-width, max-width, min-height, max-height from Figma
   - **Typography**: Extract font-family, font-size, font-weight, line-height, letter-spacing from Figma
+  - **FONTS CRITICAL**: Extract exact font family names from Figma - NEVER substitute or use fallbacks
   - **Colors**: Extract exact color values (hex, rgb, hsl) from Figma
   - **Effects**: Extract shadows, blur, opacity, transforms from Figma
   - **Layout**: Extract flexbox/grid properties, alignment, positioning from Figma
@@ -866,7 +867,7 @@ For EVERY element in the frame, extract ALL properties:
 - **Alignment**: Horizontal and vertical alignment within containers
 
 **Typography Properties (for text elements):**
-- **Font family**: Exact font name
+- **Font family**: Exact font name - MUST match Figma exactly, no substitutions allowed
 - **Font size**: Pixel size
 - **Font weight**: Numeric weight (400, 500, 600, 700, etc.)
 - **Line height**: Pixel value or percentage
@@ -876,6 +877,7 @@ For EVERY element in the frame, extract ALL properties:
 - **Text decoration**: Underline, strikethrough
 - **Text case**: None, uppercase, lowercase, capitalize
 - **Vertical alignment**: Top, middle, bottom
+- **FONT VALIDATION REQUIRED**: Verify font availability before proceeding with implementation
 
 #### 3. **Component State Analysis**
 For components with multiple states, inspect EACH state thoroughly:
@@ -1012,10 +1014,212 @@ After thorough inspection, document findings in this format:
 [Continue for all variants and states...]
 ```
 
-This systematic approach ensures pixel-perfect implementation by capturing every design detail from Figma. **NEVER RUSH THIS PROCESS** - thoroughness is infinitely more valuable than speed.
+## Font Validation and Management System
+
+### Critical Font Requirements
+
+**MANDATORY FONT FIDELITY**: Components must use the exact font families specified in Figma. No font substitutions, fallbacks, or "similar" fonts are acceptable.
+
+### Font Validation Process (`scripts/font-validation.ts`)
+
+```typescript
+// Font validation system - ensures exact Figma fonts are available
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
+export const validateFontsFromFigma = async (figmaFonts: string[]) => {
+  console.log('🔤 Validating font availability...');
+  
+  const fontValidation = {
+    requiredFonts: figmaFonts,
+    availableFonts: [],
+    missingFonts: [],
+    systemFonts: await getSystemFonts(),
+    webFonts: await getWebFonts(),
+    validationResults: []
+  };
+  
+  for (const fontFamily of figmaFonts) {
+    const validation = await validateSingleFont(fontFamily, fontValidation.systemFonts);
+    
+    fontValidation.validationResults.push({
+      fontFamily,
+      available: validation.available,
+      source: validation.source, // 'system', 'web', or 'missing'
+      alternatives: validation.alternatives,
+      installInstructions: validation.installInstructions
+    });
+    
+    if (validation.available) {
+      fontValidation.availableFonts.push(fontFamily);
+    } else {
+      fontValidation.missingFonts.push(fontFamily);
+    }
+  }
+  
+  return fontValidation;
+};
+
+// Get all system fonts
+const getSystemFonts = async (): Promise<string[]> => {
+  try {
+    // macOS
+    if (process.platform === 'darwin') {
+      const { stdout } = await execAsync('system_profiler SPFontsDataType | grep "Full Name" | cut -d: -f2 | sed "s/^ *//"');
+      return stdout.split('\n').filter(font => font.trim().length > 0);
+    }
+    
+    // Windows
+    if (process.platform === 'win32') {
+      const { stdout } = await execAsync('powershell "Get-ItemProperty -Path \\"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\\" | Select-Object PSChildName"');
+      return stdout.split('\n').filter(font => font.trim().length > 0);
+    }
+    
+    // Linux
+    const { stdout } = await execAsync('fc-list : family | sort | uniq');
+    return stdout.split('\n').filter(font => font.trim().length > 0);
+    
+  } catch (error) {
+    console.warn('Could not retrieve system fonts:', error.message);
+    return [];
+  }
+};
+
+// Validate individual font availability
+const validateSingleFont = async (fontFamily: string, systemFonts: string[]) => {
+  const validation = {
+    available: false,
+    source: 'missing' as 'system' | 'web' | 'missing',
+    alternatives: [] as string[],
+    installInstructions: ''
+  };
+  
+  // Check system fonts (exact match)
+  const exactMatch = systemFonts.find(font => 
+    font.toLowerCase().trim() === fontFamily.toLowerCase().trim()
+  );
+  
+  if (exactMatch) {
+    validation.available = true;
+    validation.source = 'system';
+    return validation;
+  }
+  
+  // Check for partial matches (font families with multiple weights)
+  const partialMatches = systemFonts.filter(font => 
+    font.toLowerCase().includes(fontFamily.toLowerCase().split(' ')[0])
+  );
+  
+  if (partialMatches.length > 0) {
+    validation.available = true;
+    validation.source = 'system';
+    validation.alternatives = partialMatches;
+    return validation;
+  }
+  
+  // Check web fonts (Google Fonts, Adobe Fonts, etc.)
+  const webFontAvailable = await checkWebFontAvailability(fontFamily);
+  if (webFontAvailable) {
+    validation.available = true;
+    validation.source = 'web';
+    return validation;
+  }
+  
+  // Font not available - provide installation instructions
+  validation.installInstructions = generateFontInstallInstructions(fontFamily);
+  
+  return validation;
+};
+
+// Generate font installation instructions
+const generateFontInstallInstructions = (fontFamily: string): string => {
+  return `
+Font Installation Required: ${fontFamily}
+
+To install this font:
+
+1. **Purchase/Download the font:**
+   - Check if available on Google Fonts: https://fonts.google.com
+   - Check Adobe Fonts: https://fonts.adobe.com  
+   - Purchase from font foundry if commercial font
+   - Obtain font files from design team
+
+2. **Install the font:**
+   - macOS: Double-click font file and click "Install Font"
+   - Windows: Right-click font file and select "Install"  
+   - Linux: Copy font files to ~/.local/share/fonts/
+
+3. **Restart development server:**
+   - Stop current dev server
+   - Clear browser cache
+   - Restart: npm run dev
+
+4. **Verify installation:**
+   - Run: npm run validate-fonts
+   - Font should appear in available fonts list
+
+Alternative: If font cannot be obtained, contact design team for approved substitution.
+`;
+};
+
+// Font validation execution with component blocking
+export const executeCompulsoryFontValidation = async (extractedFonts: string[]) => {
+  console.log('\n🔤 EXECUTING MANDATORY FONT VALIDATION');
+  console.log('=====================================');
+  
+  if (extractedFonts.length === 0) {
+    console.log('✅ No custom fonts required for this component');
+    return true;
+  }
+  
+  const validation = await validateFontsFromFigma(extractedFonts);
+  
+  console.log(`📋 Font Validation Results:`);
+  console.log(`   Required fonts: ${validation.requiredFonts.length}`);
+  console.log(`   Available fonts: ${validation.availableFonts.length}`);
+  console.log(`   Missing fonts: ${validation.missingFonts.length}`);
+  
+  // Display detailed results
+  validation.validationResults.forEach(result => {
+    if (result.available) {
+      console.log(`   ✅ ${result.fontFamily} (${result.source})`);
+    } else {
+      console.log(`   ❌ ${result.fontFamily} - NOT AVAILABLE`);
+    }
+  });
+  
+  // Block development if fonts are missing
+  if (validation.missingFonts.length > 0) {
+    console.log('\n🚨 FONT VALIDATION FAILED - COMPONENT BUILD BLOCKED');
+    console.log('================================================');
+    console.log('The following fonts from Figma are not available on this system:');
+    
+    validation.missingFonts.forEach((font, index) => {
+      console.log(`\n${index + 1}. ${font}`);
+      const instructions = validation.validationResults.find(r => r.fontFamily === font)?.installInstructions;
+      if (instructions) {
+        console.log(instructions);
+      }
+    });
+    
+    console.log('\n🛑 COMPONENT DEVELOPMENT STOPPED');
+    console.log('Please install the required fonts and run the component build again.');
+    console.log('Font fidelity is mandatory - no substitutions are acceptable.');
+    
+    return false;
+  }
+  
+  console.log('\n✅ FONT VALIDATION PASSED');
+  console.log('All required fonts are available. Proceeding with component build...');
+  
+  return true;
+};
+```
 6. **Component Planning**: Determine atomic design level and component structure
 7. **Implementation**: Build React component using extracted design tokens exclusively
-8. **SwiftUI Generation**: Create SwiftUI equivalent using same design tokens
+11. **SwiftUI Generation**: Create SwiftUI equivalent using same design tokens and exact fonts
 9. **Figma Frame Documentation**: Create/update component's `.figmaframes.md` with complete build history
 10. **Test Development**: Write comprehensive unit tests, accessibility tests, and interaction tests
 11. **Documentation**: Write component docs and Storybook stories
@@ -1033,6 +1237,8 @@ This systematic approach ensures pixel-perfect implementation by capturing every
 - Every component must have a SwiftUI equivalent based on mobile React implementation
 - **Every component must use ONLY design tokens extracted from Figma - no hardcoded values**
 - **Every design value must be rebrand-ready through Figma design token system**
+- **Every component must use exact fonts specified in Figma - no substitutions allowed**
+- **🔤 MANDATORY: Every component MUST pass font validation before implementation**
 - **Every component must have a `.figmaframes.md` file with complete build history**
 - **Every component must be listed in master registry with rebuild frame IDs**
 - **🎨 MANDATORY: Every component MUST pass visual validation using Puppeteer (95%+ accuracy)**
@@ -1108,8 +1314,10 @@ When Claude Code opens in the pigment-genesis project directory, it should:
 - If design specifications are incomplete: "The Figma frames don't contain sufficient detail for [specific element]. Please provide additional frames showing [missing information]."
 - If specific measurements are unclear: "I cannot determine the exact [padding/margin/border/spacing] values from the Figma frame. Please provide a clearer view or inspect element panel screenshot."
 - If design tokens are missing: "I cannot find the design token values for [colors/spacing/typography] in Figma. Please ensure design tokens are properly defined."
+- **If fonts are missing from system**: "FONT VALIDATION FAILED: The font '[FontName]' specified in Figma is not available on this system. Please install this font before proceeding. Component development is blocked until exact fonts are available. No font substitutions are acceptable."
 - **Never create placeholder or example components** - always wait for proper design data
 - **Never estimate or guess measurements** - request clarification for any unclear values
+- **Never substitute fonts** - block development if fonts are unavailable
 
 Remember: Consistency is key. Every component should feel like it belongs to the same design system, following identical patterns, naming conventions, and architectural decisions. **Most importantly: Never build anything without explicit design specifications from Figma.**
 
