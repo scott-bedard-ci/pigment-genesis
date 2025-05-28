@@ -97,14 +97,31 @@ When the user says they're ready to add a new component:
    - **ALL component variants** (sizes, styles, conditions)
 6. **Document extraction completely** using the mandatory documentation template
 7. **Plan component hierarchy** following atomic design principles
-8. **Build React components systematically** with extracted specifications (zero assumptions)
-9. **🚨 MANDATORY: Automated visual verification**
+8. **🚨 CRITICAL: ICON SYSTEM VALIDATION**
+   - **IDENTIFY ALL ICONS**: Scan designs for any icons, symbols, or graphical elements
+   - **ASK ABOUT ICON SYSTEM**: "I see icons in this design. Do you have an established icon system/library?"
+   - **REQUEST ICON NODES**: If system exists, ask for Figma node IDs containing the full icon library
+   - **BUILD ICON SYSTEM**: Create comprehensive icon component system from Figma nodes
+   - **NEVER CREATE ONE-OFF SVGS**: Icons must come from systematic design library
+   - **ESTABLISH ICON TOKENS**: Create icon sizing, color, and spacing tokens
+   - **CREATE ICON COMPONENTS**: Build reusable icon components with proper TypeScript interfaces
+   - **DOCUMENT ICON USAGE**: Document all available icons and their proper usage
+9. **🚨 CRITICAL: AMBIGUITY RESOLUTION PHASE**
+   - **IDENTIFY MISSING SPECIFICATIONS**: Analyze Figma frames for gaps (hover states, focus styles, interaction behaviors, responsive breakpoints, error states, loading states, etc.)
+   - **DOCUMENT ALL AMBIGUITIES**: Create detailed list of missing design specifications
+   - **ASK CLARIFYING QUESTIONS**: Present ambiguities to user and request Figma updates
+   - **PREFER FIGMA UPDATES**: Strongly encourage adding missing states/specs to Figma for future consistency
+   - **ALLOW CHAT SPECIFICATIONS**: Accept user specifications in chat only if Figma updates aren't feasible
+   - **WAIT FOR RESOLUTION**: Do not proceed with implementation until all ambiguities are resolved
+   - **RE-EXTRACT IF UPDATED**: If Figma is updated, re-extract design specifications before building
+10. **Build React components systematically** with extracted specifications (zero assumptions)
+11. **🚨 MANDATORY: Automated visual verification**
    - **IMMEDIATELY** run `npm run claude-visual-verify ComponentName`
    - **IMMEDIATELY** analyze captured screenshots using Read tool
    - **IMMEDIATELY** compare against Figma designs for pixel accuracy
    - **IMMEDIATELY** verify design token usage and visual quality
    - **REQUIRED**: 95%+ pixel accuracy before proceeding
-10. **Generate SwiftUI equivalents** based on mobile React component specifications
+12. **Generate SwiftUI equivalents** based on mobile React component specifications
 
 ### 5. Code Quality & Consistency
 - Maintain **consistent naming conventions** (PascalCase for components, camelCase for props)

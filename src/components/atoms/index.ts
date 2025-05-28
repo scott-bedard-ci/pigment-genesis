@@ -6,3 +6,9 @@ export type { ButtonProps, ButtonVariant, ButtonSize, ButtonIconPosition } from 
 
 export { Checkbox } from './Checkbox';
 export type { CheckboxProps } from './Checkbox';
+
+export { Dropdown } from './Dropdown';
+export type { DropdownProps, DropdownOption } from './Dropdown';
+
+export { Icon } from './Icon';
+export type { BaseIconProps, IconProps, IconName, CoreIconName, UniqueIconName, IconCategory } from './Icon';

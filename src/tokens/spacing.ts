@@ -66,6 +66,21 @@ export const componentSpacing = {
       border: '1px'       // Figma: White border thickness on grouped avatars
     }
   },
+
+  // Dropdown spacing - EXTRACTED from Figma
+  dropdown: {
+    fieldHeight: '40px',    // Figma: Input field container minimum height
+    fieldPaddingX: '13px',  // Figma: Horizontal padding inside input field
+    fieldPaddingY: '9px',   // Figma: Vertical padding inside input field
+    fieldGap: '6px',        // Figma: Gap between input field elements
+    listPaddingY: '8px',    // Figma: Vertical padding inside dropdown list (py-2 = 8px)
+    listPaddingX: '8px',    // Figma: Horizontal padding inside dropdown list items (px-2 = 8px)
+    itemPadding: '8px',     // Figma: Padding inside individual list items
+    itemMinHeight: '36px',  // Figma: Minimum height for list items (min-h-9 = 36px)
+    borderRadius: '4px',    // Figma: Input field border radius
+    menuBorderRadius: '8px', // Figma: Dropdown menu border radius
+    iconSize: '20px'        // Figma: Arrow icon size (size-5 = 20px)
+  },
   
   // Input padding - Future components
   input: {

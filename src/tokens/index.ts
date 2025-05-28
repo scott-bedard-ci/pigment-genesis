@@ -6,6 +6,7 @@ import { spacing, componentSpacing, gap, spacingTokenMetadata } from './spacing'
 import { typography, textStyles, typographyTokenMetadata } from './typography';
 import { breakpoints, breakpointValues, containerMaxWidths, mediaQueries, responsivePatterns } from './breakpoints';
 import { effects, componentEffects, effectsTokenMetadata } from './effects';
+import { iconTokens } from './icons';
 
 // Re-export individual token modules
 export { colors, colorTokenMetadata } from './colors';
@@ -23,6 +24,9 @@ export type { BreakpointKey, BreakpointValue, MediaQuery } from './breakpoints';
 export { effects, componentEffects, effectsTokenMetadata } from './effects';
 export type { EffectsTokens, ShadowKey, BorderRadiusKey, OpacityKey } from './effects';
 
+export { iconTokens } from './icons';
+export type { IconSize, IconColor, IconSpacing } from './icons';
+
 // Aggregated tokens object for easy access
 export const tokens = {
   colors,
@@ -37,7 +41,8 @@ export const tokens = {
   mediaQueries,
   responsivePatterns,
   effects,
-  componentEffects
+  componentEffects,
+  icons: iconTokens
 } as const;
 
 // Global token metadata

@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/utils/classNames';
 import type { BaseComponentProps } from '@/types/component';
+import { Icon } from '../Icon';
 
 // Checkbox variants using extracted Figma design tokens
 const checkboxVariants = cva(
@@ -76,22 +77,6 @@ const checkboxVariants = cva(
   }
 );
 
-// Checkmark icon using Figma specifications
-const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    className={cn('h-3.5 w-3.5', className)} // Figma: 14px checkmark size
-    viewBox="0 0 13 10"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      clipRule="evenodd"
-      d="M12.3671 0.320351C12.7943 0.747487 12.7943 1.44001 12.3671 1.86715L5.0609 9.17341C4.85532 9.37898 4.57636 9.49426 4.28563 9.49376C3.99491 9.49326 3.71634 9.37704 3.51147 9.17076L0.317717 5.95514C-0.107959 5.52655 -0.105595 4.83403 0.322996 4.40835C0.751587 3.98268 1.44411 3.98504 1.86978 4.41363L4.29014 6.85057L10.8204 0.320353C11.2475 -0.106784 11.94 -0.106784 12.3671 0.320351Z"
-      fill="#ffffff" // Figma: neutral/icon/onFill
-      fillRule="evenodd"
-    />
-  </svg>
-);
 
 // Container styles using Figma layout specifications
 const checkboxContainerVariants = cva([
@@ -196,7 +181,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             )}
           >
             {checked && !disabled && (
-              <CheckIcon className="absolute inset-0 m-auto" />
+              <Icon 
+                name="check"
+                size="sm"
+                color="inverse"
+                className="absolute inset-0 m-auto"
+                style={{ width: '14px', height: '14px' }} // Figma: exact 14px checkmark size
+                decorative
+              />
             )}
           </label>
         </div>

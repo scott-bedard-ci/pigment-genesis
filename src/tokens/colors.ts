@@ -21,7 +21,11 @@ export const colors = {
     },
     text: {
       onFill: '#ffffff',             // Figma: interactive/text/onFill - Button text on colored backgrounds
-      disabled: 'rgba(0,0,0,0.41)'   // Figma: interactive/text/disabled - Disabled text
+      disabled: 'rgba(0,0,0,0.41)',  // Figma: interactive/text/disabled - Disabled text
+      placeholder: 'rgba(0,0,0,0.28)' // Figma: interactive/text/placeholder - Dropdown placeholder text
+    },
+    icon: {
+      subtle: 'rgba(0,0,0,0.57)'     // Figma: interactive/icon/subtle - Arrow icons
     }
   },
 
@@ -32,6 +36,12 @@ export const colors = {
     },
     icon: {
       onFill: '#ffffff'             // Figma: neutral/icon/onFill - Checkmark color
+    },
+    background: {
+      primary: '#ffffff'            // Figma: neutral/background/primary - Input field background
+    },
+    border: {
+      strong: 'rgba(0,0,0,0.17)'    // Figma: neutral/border/strong - Input field border
     },
     gray: {
       '000': '#ffffff',             // Figma: primitives/color/neutral/gray-000 - White backgrounds
@@ -99,6 +109,26 @@ export const colors = {
     '50': '#fef2f2',
     '500': '#ef4444',
     '900': '#7f1d1d'
+  },
+
+  // Feedback colors - EXTRACTED from Figma
+  feedback: {
+    dangerBold: '#da1e28',          // Figma: feedback/dangerBold - Error border color
+    dangerAccessible: '#cc1c25'     // Figma: feedback/dangerAccessible - Error text color
+  },
+
+  // Effects - EXTRACTED from Figma
+  effects: {
+    shadow: {
+      dropdown: '0px 6px 12px 0px rgba(0,0,0,0.11)' // Figma: Dropdown menu shadow
+    }
+  },
+
+  // Radius values - EXTRACTED from Figma
+  radius: {
+    field: '4px',                   // Figma: radius/field - Input field border radius
+    highlight: '4px',               // Figma: radius/highlight
+    card: '8px'                     // Figma: radius/card - Dropdown menu border radius
   }
 } as const;
 
