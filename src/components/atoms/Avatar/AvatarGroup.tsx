@@ -133,46 +133,52 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
       >
         {/* Visible Avatars */}
         {visibleAvatars.map((avatar, index) => (
-          <Avatar
+          <div
             key={`${avatar.name || avatar.initials || 'avatar'}-${index}`}
-            name={avatar.name}
-            initials={avatar.initials}
-            src={avatar.src}
-            alt={avatar.alt}
-            size={size}
-            showTooltip={showTooltips}
-            inGroup={true} // This enables the white border
-            className={cn(
-              'relative',
-              // Higher z-index for later avatars so borders show correctly
-              index > 0 && 'z-20'
-            )}
             style={{
               // Use inline style for dynamic spacing values
               ...(index > 0 && { marginLeft: `${spacingValue}px` }),
               zIndex: 10 + index
             }}
-          />
+            className={cn(
+              'relative',
+              // Higher z-index for later avatars so borders show correctly
+              index > 0 && 'z-20'
+            )}
+          >
+            <Avatar
+              name={avatar.name}
+              initials={avatar.initials}
+              src={avatar.src}
+              alt={avatar.alt}
+              size={size}
+              showTooltip={showTooltips}
+              inGroup={true} // This enables the white border
+            />
+          </div>
         ))}
         
         {/* Overflow Avatar */}
         {shouldShowOverflow && (
-          <Avatar
-            isPlusAvatar
-            plusCount={overflowCount}
-            size={size}
-            inGroup={true}
-            showTooltip={showTooltips}
-            tooltipContent={`${overflowCount} more`}
-            className={cn(
-              'relative',
-              'z-30'
-            )}
+          <div
             style={{
               marginLeft: `${spacingValue}px`,
               zIndex: 10 + visibleAvatars.length
             }}
-          />
+            className={cn(
+              'relative',
+              'z-30'
+            )}
+          >
+            <Avatar
+              isPlusAvatar
+              plusCount={overflowCount}
+              size={size}
+              inGroup={true}
+              showTooltip={showTooltips}
+              tooltipContent={`${overflowCount} more`}
+            />
+          </div>
         )}
       </div>
     );
