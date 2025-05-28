@@ -30,13 +30,13 @@ A pixel-perfect checkbox component built from Figma design specifications using 
 
 ## Design Tokens Used
 
-### Colors
-- \`interactive.background.bold\` (#1e39d2) - Selected checkbox background
-- \`interactive.border.strong\` (rgba(0,0,0,0.74)) - Default checkbox border
-- \`interactive.border.disabled\` (rgba(0,0,0,0.03)) - Disabled checkbox border
-- \`neutral.text.primary\` (rgba(0,0,0,0.86)) - Default label text
-- \`interactive.text.disabled\` (rgba(0,0,0,0.41)) - Disabled label text
-- \`neutral.icon.onFill\` (#ffffff) - Checkmark color
+### Colors (Hybrid Approach - Semantic + Precise)
+- \`semanticColors.interactive.background.bold\` (#1e39d2) - Selected checkbox background
+- **Precise Figma value** rgba(0,0,0,0.74) - Default checkbox border (maintains exact opacity)
+- **Precise Figma value** rgba(0,0,0,0.03) - Disabled checkbox border (very light)
+- \`semanticColors.neutral.text.primary\` (rgba(0,0,0,0.86)) - Default label text
+- \`semanticColors.interactive.text.disabled\` (rgba(0,0,0,0.41)) - Disabled label text
+- \`semanticColors.neutral.icon.on-fill\` (#ffffff) - Checkmark color
 
 ### Spacing
 - \`checkbox.size\` (18px) - Checkbox dimensions
@@ -245,15 +245,15 @@ export const DesignTokens: Story = {
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-[#1e39d2] rounded"></div>
-              <code>interactive.background.bold</code>
+              <code>semanticColors.interactive.background.bold</code>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-[rgba(0,0,0,0.74)] rounded"></div>
-              <code>interactive.border.strong</code>
+              <code>Precise Figma value (rgba(0,0,0,0.74))</code>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-[rgba(0,0,0,0.03)] rounded"></div>
-              <code>interactive.border.disabled</code>
+              <code>Precise Figma value (rgba(0,0,0,0.03))</code>
             </div>
           </div>
         </div>

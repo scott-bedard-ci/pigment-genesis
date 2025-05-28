@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { colors } from '../../../tokens/colors';
-import { componentSpacing } from '../../../tokens/spacing';
+import { semanticColors } from '../../../tokens/colors';
+import { componentSpacing, semanticSpacing } from '../../../tokens/spacing';
 import { typography } from '../../../tokens/typography';
 import { Icon } from '../Icon';
 
@@ -172,17 +172,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
       fontSize: typography.fontSize['body-md'],
       fontWeight: typography.fontWeight.medium,
       lineHeight: typography.lineHeight['body-md'],
-      color: colors.neutral.text.primary,
+      color: semanticColors.neutral.text.primary,
       marginBottom: '4px',
       display: 'block',
     },
     trigger: {
       width: '100%',
       minHeight: componentSpacing.dropdown.fieldHeight,
-      backgroundColor: colors.neutral.background.primary,
-      border: `1px solid ${error ? colors.feedback.dangerBold : colors.neutral.border.strong}`,
+      backgroundColor: semanticColors.neutral.background.primary,
+      border: error ? '1px solid rgb(var(--pigment-feedback-danger-bold))' : '1px solid rgb(var(--pigment-neutral-border-strong))',
       borderRadius: componentSpacing.dropdown.borderRadius,
-      padding: `${componentSpacing.dropdown.fieldPaddingY} ${componentSpacing.dropdown.fieldPaddingX}`,
+      padding: '9px 13px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -191,7 +191,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       fontSize: typography.fontSize['body-md'],
       fontWeight: typography.fontWeight.medium,
       lineHeight: typography.lineHeight['body-md'],
-      color: selectedOption ? colors.neutral.text.primary : colors.interactive.text.placeholder,
+      color: selectedOption ? semanticColors.neutral.text.primary : semanticColors.interactive.text.placeholder,
       textAlign: 'left' as const,
       gap: componentSpacing.dropdown.fieldGap,
       opacity: disabled ? 0.5 : 1,
@@ -199,8 +199,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
       transition: 'border-color 0.2s ease',
     },
     triggerFocused: {
-      borderColor: colors.interactive.background.bold,
-      boxShadow: `0 0 0 1px ${colors.interactive.background.bold}`,
+      borderColor: semanticColors.interactive.background.bold,
+      boxShadow: '0 0 0 1px rgb(var(--pigment-interactive-border-bold))',
     },
     menu: {
       position: 'absolute' as const,
@@ -208,18 +208,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
       left: 0,
       right: 0,
       zIndex: 50,
-      backgroundColor: colors.neutral.background.primary,
-      border: `1px solid ${colors.neutral.border.strong}`,
+      backgroundColor: semanticColors.neutral.background.primary,
+      border: '1px solid rgb(var(--pigment-neutral-border-strong))',
       borderRadius: componentSpacing.dropdown.menuBorderRadius,
-      boxShadow: colors.effects.shadow.dropdown,
+      boxShadow: '0px 6px 12px 0px rgba(0,0,0,0.11)', // TODO: Map to semantic shadow token
       marginTop: '1px', // Figma: minimal gap to clear input focus outline
       maxHeight: '200px',
       overflowY: 'auto' as const,
-      padding: `${componentSpacing.dropdown.listPaddingY} 0`,
+      padding: '8px 0',
     },
     option: {
       width: '100%',
-      padding: `${componentSpacing.dropdown.itemPadding} ${componentSpacing.dropdown.listPaddingX}`,
+      padding: '8px 8px',
       minHeight: componentSpacing.dropdown.itemMinHeight,
       display: 'flex',
       alignItems: 'center',
@@ -227,7 +227,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       fontSize: typography.fontSize['body-md'],
       fontWeight: typography.fontWeight.medium,
       lineHeight: typography.lineHeight['body-md'],
-      color: colors.neutral.text.primary,
+      color: semanticColors.neutral.text.primary,
       backgroundColor: 'transparent',
       border: 'none',
       cursor: 'pointer',
@@ -236,13 +236,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
       transition: 'background-color 0.2s ease',
     },
     optionHovered: {
-      backgroundColor: colors.neutral.gray['000'],
+      backgroundColor: semanticColors.interactive.background.subtle,
     },
     optionFocused: {
-      backgroundColor: 'rgba(30, 57, 210, 0.1)',
+      backgroundColor: semanticColors.interactive.background.subtle, // rgba(30, 57, 210, 0.0800)
     },
     optionDisabled: {
-      color: colors.interactive.text.disabled,
+      color: semanticColors.interactive.text.disabled,
       cursor: 'not-allowed',
       backgroundColor: 'transparent',
     },
@@ -255,7 +255,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       fontSize: typography.fontSize['body-md'],
       fontWeight: typography.fontWeight.medium,
       lineHeight: typography.lineHeight['body-md'],
-      color: colors.feedback.dangerAccessible,
+      color: semanticColors.feedback['danger-accessible'],
     },
   };
 

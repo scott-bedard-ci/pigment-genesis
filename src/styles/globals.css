@@ -8,30 +8,31 @@
 /* Design Token CSS Custom Properties */
 /* These are automatically generated from Figma design tokens */
 :root {
-  /* Color tokens - will be populated from Figma */
-  --pigment-primary-50: 240 244 255;   /* #f0f4ff */
-  --pigment-primary-100: 224 233 255;  /* #e0e9ff */
-  --pigment-primary-200: 199 210 254;  /* #c7d2fe */
-  --pigment-primary-300: 165 180 252;  /* #a5b4fc */
-  --pigment-primary-400: 129 140 248;  /* #818cf8 */
-  --pigment-primary-500: 59 130 246;   /* #3b82f6 */
-  --pigment-primary-600: 37 99 235;    /* #2563eb */
-  --pigment-primary-700: 29 78 216;    /* #1d4ed8 */
-  --pigment-primary-800: 30 64 175;    /* #1e40af */
-  --pigment-primary-900: 30 58 138;    /* #1e3a8a */
-  --pigment-primary-950: 23 37 84;     /* #172554 */
+  /* Primary colors - Extracted from Figma interactive.background.bold */
+  --pigment-primary-50: 248 250 255;   /* Very light blue for hover states */
+  --pigment-primary-100: 240 244 255;  /* Light blue for subtle backgrounds */
+  --pigment-primary-200: 224 233 255;  /* Subtle blue */
+  --pigment-primary-300: 199 210 254;  /* Medium blue */
+  --pigment-primary-400: 165 180 252;  /* */
+  --pigment-primary-500: 30 57 210;    /* #1e39d2 - Main brand blue from Figma */
+  --pigment-primary-600: 24 46 168;    /* #182ea8 - Hover state from Figma */
+  --pigment-primary-700: 19 36 134;    /* #132486 - Pressed state from Figma */
+  --pigment-primary-800: 15 28 100;    /* Darker blue */
+  --pigment-primary-900: 10 20 70;     /* Darkest blue */
+  --pigment-primary-950: 5 10 40;      /* Very dark blue */
 
-  --pigment-secondary-50: 253 244 255;  /* #fdf4ff */
-  --pigment-secondary-100: 250 232 255; /* #fae8ff */
-  --pigment-secondary-200: 245 208 254; /* #f5d0fe */
-  --pigment-secondary-300: 240 171 252; /* #f0abfc */
-  --pigment-secondary-400: 232 121 249; /* #e879f9 */
-  --pigment-secondary-500: 168 85 247;  /* #a855f7 */
-  --pigment-secondary-600: 147 51 234;  /* #9333ea */
-  --pigment-secondary-700: 124 58 237;  /* #7c3aed */
-  --pigment-secondary-800: 107 33 168;  /* #6b21a8 */
-  --pigment-secondary-900: 88 28 135;   /* #581c87 */
-  --pigment-secondary-950: 59 7 100;    /* #3b0764 */
+  /* Secondary colors - Extracted from Figma partnership.background.bold */
+  --pigment-secondary-50: 255 248 245;  /* Very light red */
+  --pigment-secondary-100: 255 240 235; /* Light red */
+  --pigment-secondary-200: 255 220 205; /* Subtle red */
+  --pigment-secondary-300: 255 180 155; /* Medium red */
+  --pigment-secondary-400: 255 120 85;  /* */
+  --pigment-secondary-500: 250 60 0;    /* #fa3c00 - Main brand red from Figma */
+  --pigment-secondary-600: 230 54 0;    /* #e63600 - Hover state from Figma */
+  --pigment-secondary-700: 204 48 0;    /* #cc3000 - Pressed state from Figma */
+  --pigment-secondary-800: 180 42 0;    /* Darker red */
+  --pigment-secondary-900: 150 35 0;    /* Darkest red */
+  --pigment-secondary-950: 100 23 0;    /* Very dark red */
 
   --pigment-success-50: 240 253 244;    /* #f0fdf4 */
   --pigment-success-500: 16 185 129;    /* #10b981 */
@@ -42,20 +43,21 @@
   --pigment-warning-900: 120 53 15;     /* #78350f */
 
   --pigment-error-50: 254 242 242;      /* #fef2f2 */
-  --pigment-error-500: 239 68 68;       /* #ef4444 */
+  --pigment-error-500: 218 30 40;       /* #da1e28 - Figma feedback.danger-bold */
   --pigment-error-900: 127 29 29;       /* #7f1d1d */
 
-  --pigment-neutral-50: 249 250 251;    /* #f9fafb */
-  --pigment-neutral-100: 243 244 246;   /* #f3f4f6 */
-  --pigment-neutral-200: 229 231 235;   /* #e5e7eb */
-  --pigment-neutral-300: 209 213 219;   /* #d1d5db */
-  --pigment-neutral-400: 156 163 175;   /* #9ca3af */
-  --pigment-neutral-500: 107 114 128;   /* #6b7280 */
-  --pigment-neutral-600: 75 85 99;      /* #4b5563 */
-  --pigment-neutral-700: 55 65 81;      /* #374151 */
-  --pigment-neutral-800: 31 41 55;      /* #1f2937 */
-  --pigment-neutral-900: 17 24 39;      /* #111827 */
-  --pigment-neutral-950: 3 7 18;        /* #030712 */
+  /* Neutral colors - Extracted from Figma primitive.color.neutral */
+  --pigment-neutral-50: 250 250 250;    /* #fafafa - Figma neutral.gray.050 */
+  --pigment-neutral-100: 245 245 245;   /* #f5f5f5 - Figma neutral.gray.100 */
+  --pigment-neutral-200: 227 227 227;   /* #e3e3e3 - Figma neutral.gray.200 */
+  --pigment-neutral-300: 209 209 209;   /* #d1d1d1 - Figma neutral.gray.300 */
+  --pigment-neutral-400: 184 184 184;   /* #b8b8b8 - Figma neutral.gray.400 */
+  --pigment-neutral-500: 150 150 150;   /* #969696 - Figma neutral.gray.500 */
+  --pigment-neutral-600: 110 110 110;   /* #6e6e6e - Figma neutral.gray.600 */
+  --pigment-neutral-700: 74 74 74;      /* #4a4a4a - Figma neutral.gray.700 */
+  --pigment-neutral-800: 54 54 54;      /* #363636 - Figma neutral.gray.800 */
+  --pigment-neutral-900: 36 36 36;      /* #242424 - Figma neutral.gray.900 */
+  --pigment-neutral-950: 24 24 24;      /* #181818 - Figma neutral.gray.990 */
 
   /* Spacing tokens - will be populated from Figma */
   --pigment-spacing-xs: 4px;
@@ -100,6 +102,26 @@
   --pigment-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --pigment-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --pigment-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Semantic color mappings for components */
+  --pigment-interactive-background-bold: var(--pigment-primary-500);
+  --pigment-interactive-background-bold-hover: var(--pigment-primary-600);
+  --pigment-interactive-background-bold-pressed: var(--pigment-primary-700);
+  --pigment-interactive-text-on-fill: 255 255 255;
+  --pigment-interactive-text-default: var(--pigment-primary-500);
+  --pigment-interactive-text-disabled: 0 0 0 / 0.41;
+  --pigment-interactive-border-bold: var(--pigment-primary-500);
+  --pigment-interactive-border-disabled: 0 0 0 / 0.18;
+  --pigment-interactive-border-very-disabled: 0 0 0 / 0.03; /* Figma super light disabled border */
+  
+  --pigment-neutral-background-primary: 255 255 255;
+  --pigment-neutral-text-primary: 0 0 0 / 0.86;
+  --pigment-neutral-border-strong: 0 0 0 / 0.74; /* Figma precise value for checkbox border */
+  
+  --pigment-partnership-background-bold: var(--pigment-secondary-500);
+  --pigment-partnership-text-on-fill: 255 255 255;
+  
+  --pigment-feedback-danger-bold: var(--pigment-error-500);
 }
 
 /* Base layer styles */

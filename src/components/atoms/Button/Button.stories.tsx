@@ -59,16 +59,17 @@ A comprehensive button component built from Figma design specifications using ex
 
 ## Design Tokens Used
 
-### Colors (Extracted from Figma)
-- \`interactive.background.bold\` (#1e39d2) - Primary button background
-- \`interactive.background.boldHover\` (#182ea8) - Primary button hover
-- \`interactive.background.boldPressed\` (#132486) - Primary button pressed
-- \`interactive.background.boldDisabled\` (rgba(0,0,0,0.18)) - Disabled background
-- \`interactive.text.onFill\` (#ffffff) - Button text on colored backgrounds
-- \`interactive.text.disabled\` (rgba(0,0,0,0.41)) - Disabled text color
-- \`primitives.red.default\` (#fa3c00) - Tertiary button color
-- \`primitives.blue.default\` (#1e39d2) - Secondary button border/text
-- \`neutral.gray.000\` (#ffffff) - Secondary button background
+### Colors (Hybrid Approach - Semantic + Precise)
+- \`semanticColors.interactive.background.bold\` (#1e39d2) - Primary button background  
+- \`semanticColors.interactive.background.bold-hover\` (#182ea8) - Primary button hover
+- \`semanticColors.interactive.background.bold-pressed\` (#132486) - Primary button pressed
+- \`semanticColors.interactive.background.bold-disabled\` (rgba(0,0,0,0.18)) - Disabled background
+- \`semanticColors.interactive.text.on-fill\` (#ffffff) - Button text on colored backgrounds
+- \`semanticColors.interactive.text.disabled\` (rgba(0,0,0,0.41)) - Disabled text color
+- \`semanticColors.partnership.background.bold\` (#fa3c00) - Tertiary button color
+- \`semanticColors.interactive.text.default\` (#1e39d2) - Secondary button border/text
+- \`semanticColors.neutral.background.primary\` (#ffffff) - Secondary button background
+- **Precise Figma values** for hover states where semantic tokens differ from original design
 
 ### Spacing (Extracted from Figma)
 - \`button.small.height\` (32px) - Small button height

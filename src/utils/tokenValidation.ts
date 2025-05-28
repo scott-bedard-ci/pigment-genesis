@@ -1,7 +1,7 @@
 // Token Validation System - Prevents placeholder token usage in components
 // 🚨 CRITICAL: This system prevents default tokens from leaking into components
 
-import { colorTokenMetadata, isPlaceholderToken } from '../tokens/colors';
+import { colorTokenMetadata } from '../tokens/colors';
 import { spacingTokenMetadata } from '../tokens/spacing';
 import { typographyTokenMetadata } from '../tokens/typography';
 
@@ -48,7 +48,8 @@ export const validateAllTokens = (): boolean => {
  * Validates a specific token value to ensure it's not a placeholder
  */
 export const validateTokenValue = (tokenValue: any, tokenName: string): boolean => {
-  if (typeof tokenValue === 'string' && isPlaceholderToken(tokenValue)) {
+  // Check for placeholder token patterns
+  if (typeof tokenValue === 'string' && tokenValue.includes('FIGMA_TOKEN_REQUIRED')) {
     throw new Error(
       `🚨 CRITICAL ERROR: Attempting to use placeholder token "${tokenName}"!\n` +
       `Value: ${tokenValue}\n\n` +

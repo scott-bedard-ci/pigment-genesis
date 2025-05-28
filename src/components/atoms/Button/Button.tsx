@@ -20,54 +20,54 @@ const buttonVariants = cva(
       // Type variants extracted from Figma button frame
       variant: {
         primary: [
-          'bg-[#1e39d2] text-[#ffffff]',                    // interactive.background.bold + interactive.text.onFill
-          'hover:bg-[#182ea8]',                              // interactive.background.boldHover
-          'active:bg-[#132486]',                             // interactive.background.boldPressed
-          'disabled:bg-[rgba(0,0,0,0.18)] disabled:text-[rgba(0,0,0,0.41)]' // interactive.background.boldDisabled + interactive.text.disabled
+          'bg-interactive-bg-bold text-interactive-text-on-fill',
+          'hover:bg-interactive-bg-bold-hover',
+          'active:bg-interactive-bg-bold-pressed',
+          'disabled:bg-interactive-border-disabled disabled:text-interactive-text-disabled'
         ],
         secondary: [
-          'bg-[#ffffff] text-[#1e39d2]',                     // neutral.gray.000 + primitives.blue.default
-          'border border-[#1e39d2]',                         // primitives.blue.default border
-          'hover:bg-[#f8faff]',                              // Subtle hover background
-          'active:bg-[#f0f4ff]',                             // Subtle active background
-          'disabled:bg-[#ffffff] disabled:text-[rgba(0,0,0,0.41)] disabled:border-[rgba(0,0,0,0.18)]'
+          'bg-neutral-bg-primary text-interactive-text-default',
+          'border border-interactive-border-bold',
+          'hover:bg-primary-50',  // Original Figma-designed hover color (very light blue)
+          'active:bg-primary-100', // Original Figma-designed active color (light blue)
+          'disabled:bg-neutral-bg-primary disabled:text-interactive-text-disabled disabled:border-interactive-border-disabled'
         ],
         tertiary: [
-          'bg-[#fa3c00] text-[#ffffff]',                     // primitives.red.default + interactive.text.onFill
-          'hover:bg-[#e63600]',                              // Darker red hover
-          'active:bg-[#cc3000]',                             // Darker red active
-          'disabled:bg-[rgba(0,0,0,0.18)] disabled:text-[rgba(0,0,0,0.41)]'
+          'bg-partnership-bg-bold text-partnership-text-on-fill',
+          'hover:bg-secondary-600',  // Original Figma-designed hover color (darker red)
+          'active:bg-secondary-700', // Original Figma-designed active color (even darker red)
+          'disabled:bg-interactive-border-disabled disabled:text-interactive-text-disabled'
         ],
         text: [
-          'bg-transparent text-[#1e39d2]',                   // No background + primitives.blue.default
-          'hover:bg-[#f8faff]',                              // Subtle hover background
-          'active:bg-[#f0f4ff]',                             // Subtle active background
-          'disabled:text-[rgba(0,0,0,0.41)]'                 // interactive.text.disabled
+          'bg-transparent text-interactive-text-default',
+          'hover:bg-primary-50',  // Original Figma-designed hover color (consistent with secondary)
+          'active:bg-primary-100', // Original Figma-designed active color (consistent with secondary)
+          'disabled:text-interactive-text-disabled'
         ]
       },
       // Size variants extracted from Figma button frame
       size: {
         small: [
-          'h-8 min-w-16 px-4 py-1.5',                       // 32px height, 16px padding, 6px vertical
-          'text-xs leading-4',                               // 12px font size, 16px line height
-          'rounded-md'                                       // 6px border radius
+          'h-8 min-w-16 px-4 py-1.5',
+          'text-xs leading-4',
+          'rounded-md'
         ],
         medium: [
-          'h-10 min-w-16 px-4 py-2',                        // 40px height, 16px padding, 8px vertical
-          'text-sm leading-[18px]',                          // 14px font size, 18px line height
-          'rounded-md'                                       // 6px border radius
+          'h-10 min-w-16 px-4 py-2',
+          'text-sm leading-[18px]',
+          'rounded-md'
         ],
         large: [
-          'h-12 min-w-16 px-4 py-3',                        // 48px height, 16px padding, 12px vertical
-          'text-base leading-5',                             // 16px font size, 20px line height
-          'rounded-md'                                       // 6px border radius
+          'h-12 min-w-16 px-4 py-3',
+          'text-base leading-5',
+          'rounded-md'
         ]
       },
       // Icon position for buttons with icons
       iconPosition: {
         none: '',
-        left: 'flex-row gap-2',                              // Icon on left with 8px gap
-        right: 'flex-row-reverse gap-2',                     // Icon on right with 8px gap
+        left: 'flex-row gap-2',
+        right: 'flex-row-reverse gap-2',
         only: 'p-3'                                          // Icon only, square padding
       }
     },

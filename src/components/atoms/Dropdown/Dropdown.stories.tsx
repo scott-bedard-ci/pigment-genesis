@@ -47,10 +47,10 @@ A customizable dropdown component built with design tokens extracted from Figma.
 ## Design System Integration
 
 This component uses design tokens extracted directly from Figma:
-- Colors: \`neutral.text.primary\`, \`interactive.icon.subtle\`, \`feedback.dangerBold\`
+- Colors: \`semanticColors.neutral.text.primary\`, \`semanticColors.interactive.icon.subtle\`, \`semanticColors.feedback.danger-bold\`
 - Spacing: \`componentSpacing.dropdown.*\` for padding, heights, and gaps
 - Typography: \`Sharp Sans Medium\` font family with consistent sizing
-- Effects: \`effects.shadow.dropdown\` for proper depth
+- Effects: Custom shadow value matching Figma specifications
 
 ## Usage Guidelines
 

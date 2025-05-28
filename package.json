@@ -34,6 +34,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "validate-tokens": "tsx scripts/validate-tokens.ts",
+    "validate-figma-tokens": "tsx scripts/validate-figma-tokens.ts",
     "extract-figma-tokens": "node scripts/extract-figma-tokens.ts",
     "update-design-tokens": "npm run extract-figma-tokens && npm run build-tokens",
     "build-tokens": "node scripts/build-token-files.ts",

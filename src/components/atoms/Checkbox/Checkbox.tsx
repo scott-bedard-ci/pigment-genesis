@@ -31,21 +31,21 @@ const checkboxVariants = cva(
       },
       checked: {
         false: [
-          // Figma: interactive/border/strong for unchecked state
-          'border-[rgba(0,0,0,0.74)]',
+          // Original Figma-designed unchecked border (precise opacity)
+          'border-neutral-border-strong',
           'bg-transparent',
         ],
         true: [
-          // Figma: interactive/background/bold for checked state
-          'bg-[#1e39d2]',
-          'border-[#1e39d2]',
+          // Uses semantic tokens for checked state
+          'bg-interactive-bg-bold',
+          'border-interactive-bg-bold',
         ],
       },
       disabled: {
         false: '',
         true: [
-          // Figma: interactive/border/disabled for disabled state
-          'border-[rgba(0,0,0,0.03)]',
+          // Original Figma-designed disabled border (very light)
+          'border-interactive-border-very-disabled',
           'bg-transparent',
         ],
       },
@@ -55,16 +55,16 @@ const checkboxVariants = cva(
         checked: true,
         disabled: false,
         className: [
-          // Selected state styling from Figma
-          'bg-[#1e39d2]',
-          'border-[#1e39d2]',
+          // Selected state styling using semantic tokens
+          'bg-interactive-bg-bold',
+          'border-interactive-bg-bold',
         ],
       },
       {
         disabled: true,
         className: [
-          // Disabled state overrides from Figma
-          'border-[rgba(0,0,0,0.03)]',
+          // Original Figma-designed disabled state
+          'border-interactive-border-very-disabled',
           'bg-transparent',
         ],
       },
@@ -82,7 +82,7 @@ const checkboxVariants = cva(
 const checkboxContainerVariants = cva([
   'flex',
   'items-center',
-  'gap-2', // Figma: 8px gap between checkbox and label
+  'gap-2', // 8px gap between checkbox and label
   'min-h-8', // Figma: 32px container height
 ], {
   variants: {
@@ -102,8 +102,8 @@ const labelVariants = cva([
 ], {
   variants: {
     disabled: {
-      false: 'text-[rgba(0,0,0,0.86)]', // Figma: neutral/text/primary
-      true: 'text-[rgba(0,0,0,0.41)]',  // Figma: interactive/text/disabled
+      false: 'text-neutral-text-primary', // Uses semantic token for primary text
+      true: 'text-interactive-text-disabled',  // Uses semantic token for disabled text
     },
   },
 });
