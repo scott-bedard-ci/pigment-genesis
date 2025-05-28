@@ -144,10 +144,8 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
             inGroup={true} // This enables the white border
             className={cn(
               'relative',
-              // Apply spacing to all except first avatar
-              index > 0 && `ml-[${spacingValue}px]`,
-              // Ensure higher z-index for later avatars so borders show correctly
-              `z-[${10 + index}]`
+              // Higher z-index for later avatars so borders show correctly
+              index > 0 && 'z-20'
             )}
             style={{
               // Use inline style for dynamic spacing values
@@ -168,8 +166,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
             tooltipContent={`${overflowCount} more`}
             className={cn(
               'relative',
-              `ml-[${spacingValue}px]`,
-              `z-[${10 + visibleAvatars.length}]`
+              'z-30'
             )}
             style={{
               marginLeft: `${spacingValue}px`,

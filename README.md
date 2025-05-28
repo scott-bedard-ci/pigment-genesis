@@ -52,6 +52,7 @@ function App() {
 
 - Node.js 18+ 
 - npm 8+
+- **Sharp Sans font family** installed system-wide (required for accurate typography)
 
 ### Setup
 
@@ -64,6 +65,43 @@ cd pigment-genesis
 npm install
 
 # Start Storybook development server
+npm run dev
+```
+
+### 🔤 Font Setup (Required)
+
+The design system uses **Sharp Sans Medium** font family. You must install this font before development:
+
+#### Installation Steps:
+
+**macOS:**
+```bash
+# Download Sharp Sans from CustomInk's design assets
+# Double-click the .otf/.ttf files and click "Install Font"
+# Or use Font Book → File → Add Fonts
+```
+
+**Windows:**
+```bash
+# Download Sharp Sans font files
+# Right-click each .otf/.ttf file → "Install" or "Install for all users"
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Download Sharp Sans font files
+mkdir -p ~/.fonts
+cp Sharp-Sans-*.otf ~/.fonts/
+fc-cache -fv
+```
+
+#### Verification:
+- Open browser dev tools → Elements → Computed → font-family
+- Should show "Sharp Sans" as active font for component text
+- If missing, components will fall back to system fonts (incorrect appearance)
+
+**⚠️ Important:** Restart Storybook after font installation:
+```bash
 npm run dev
 ```
 
@@ -128,8 +166,8 @@ tokens.spacing.md             // 16px
 tokens.spacing.lg             // 24px
 
 // Typography
-tokens.typography.bodyMedium  // 16px/24px Inter
-tokens.typography.headingLarge // 36px/44px Inter Bold
+tokens.typography.bodyMedium  // 16px/24px Sharp Sans Medium
+tokens.typography.headingLarge // 36px/44px Sharp Sans Medium
 ```
 
 ### Rebrand Ready

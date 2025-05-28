@@ -29,9 +29,9 @@ const avatarVariants = cva(
           'tracking-[0.165px]'                         // Figma: Letter spacing
         ],
         large: [
-          'w-12 h-12',                                 // Figma: Large avatar dimensions (estimated 48px)
-          'p-3',                                       // Figma: 12px internal padding
-          'text-base leading-5',                       // Figma: Larger text for large avatars
+          'w-12 h-12',                                 // Figma: Large avatar dimensions
+          'p-2',                                       // Figma: 8px internal padding (same as small)
+          'text-[14px] leading-[0]',                   // Figma: 14px font, line-height 0
           'tracking-[0.165px]'                         // Figma: Letter spacing
         ]
       },
