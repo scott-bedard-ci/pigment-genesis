@@ -77,6 +77,15 @@ When the user says they're ready to add a new component:
 5. **Build React components systematically** with consistent patterns
 6. **Generate SwiftUI equivalents** based on mobile React component specifications
 
+### 4.1 Icon System Figma Integration
+When building or updating the icon system:
+1. **Request Figma icon frame links** - collect frames containing icon libraries, individual icons, or icon variants
+2. **Analyze icon designs thoroughly** - extract SVG data, sizing specifications, and design tokens
+3. **Extract icon specifications** - dimensions, stroke widths, fill colors, variants, states
+4. **Generate icon components** - create React and SwiftUI icon components from Figma data
+5. **Maintain icon frame tracking** - document all Figma sources for future updates and consistency
+6. **Validate icon consistency** - ensure all icons follow the same design principles and sizing standards
+
 ### 5. Code Quality & Consistency
 - Maintain **consistent naming conventions** (PascalCase for components, camelCase for props)
 - Use **composition over inheritance** patterns
@@ -111,6 +120,11 @@ pigment-genesis/
 │   │   ├── effects.ts               # Shadows, borders from Figma
 │   │   ├── figma-tokens.json        # Raw Figma design token data
 │   │   └── index.ts
+│   ├── icons/
+│   │   ├── index.ts                 # Icon system exports
+│   │   ├── IconComponent.tsx        # Base icon component
+│   │   ├── icons.generated.tsx      # Auto-generated icon components
+│   │   └── icon-system.json         # Icon system metadata
 │   ├── components/
 │   │   ├── atoms/
 │   │   │   ├── Button/
@@ -616,6 +630,726 @@ export const ComponentName: React.FC<ComponentNameProps> = ({
 ComponentName.displayName = 'ComponentName';
 ```
 
+## Design Token Foundation & Validation System
+
+### Design Token Philosophy
+Design tokens are the absolute foundation of the design system and must be established before any component or icon work begins:
+- **Single Source of Truth**: Figma design tokens are the ultimate authority
+- **Pre-Component Validation**: No components can be built without validated token library
+- **Complete Coverage**: Every design value used must have a corresponding token
+- **Mismatch Prevention**: All component values must map to existing tokens
+- **Rebrand Readiness**: Token changes propagate instantly across entire system
+
+### Design Token Import & Validation Workflow
+
+#### Step 1: Initial Token Import Request
+```
+🎨 DESIGN TOKEN VALIDATION REQUIRED
+
+Before building any components, I need to establish the design token foundation.
+This ensures every component uses consistent, rebrand-ready values.
+
+Please provide one of the following:
+
+1. **Complete Figma Design Token Export** (Preferred)
+   - Export all design tokens from your Figma design system
+   - Include: colors, spacing, typography, effects, breakpoints, icons
+   - Provide as JSON file or share Figma frame containing all tokens
+
+2. **Figma Design System Library Link**
+   - Link to your master design system library/frame
+   - I'll extract all tokens directly from Figma
+
+3. **Existing Token Files**
+   - If you have existing design token files to import
+   - I'll validate and convert to our token system
+
+❌ I cannot proceed with component development without a validated token library.
+✅ Once tokens are imported and validated, component building can begin.
+```
+
+#### Step 2: Token Processing & Validation
+```typescript
+// Design token validation system
+export interface DesignTokenValidation {
+  tokenLibraryStatus: 'missing' | 'outdated' | 'invalid' | 'valid';
+  importedTokens: {
+    colors: TokenValidation;
+    spacing: TokenValidation;
+    typography: TokenValidation;
+    effects: TokenValidation;
+    breakpoints: TokenValidation;
+    icons: TokenValidation;
+  };
+  validationResults: TokenValidationResult[];
+  missingCategories: string[];
+  recommendations: string[];
+}
+
+interface TokenValidation {
+  count: number;
+  valid: boolean;
+  issues: string[];
+  coverage: number; // Percentage of expected tokens present
+}
+
+interface TokenValidationResult {
+  category: string;
+  tokenName: string;
+  figmaValue: any;
+  status: 'valid' | 'missing' | 'mismatch' | 'invalid';
+  recommendations?: string[];
+}
+```
+
+#### Step 3: Token Library Structure
+```typescript
+// Complete design token structure (src/tokens/figma-tokens.json)
+{
+  "metadata": {
+    "figmaFileId": "abc123def456",
+    "exportDate": "2025-05-28T14:30:00Z",
+    "version": "1.2.0",
+    "tokenCount": 247,
+    "sourceFrames": [
+      "https://figma.com/file/.../design-tokens-master",
+      "https://figma.com/file/.../color-system",
+      "https://figma.com/file/.../typography-system"
+    ]
+  },
+  "colors": {
+    "primary": {
+      "50": "#f0f4ff",
+      "100": "#e0e9ff", 
+      "500": "#3b82f6",
+      "900": "#1e3a8a"
+    },
+    "semantic": {
+      "success": "#10b981",
+      "warning": "#f59e0b", 
+      "error": "#ef4444"
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "CustomInk Sans",
+      "secondary": "CustomInk Serif"
+    },
+    "fontSizes": {
+      "xs": "12px",
+      "sm": "14px", 
+      "base": "16px",
+      "lg": "18px",
+      "xl": "20px"
+    },
+    "fontWeights": {
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "effects": {
+    "shadows": {
+      "sm": "0 1px 2px rgba(0,0,0,0.05)",
+      "md": "0 4px 6px rgba(0,0,0,0.07)",
+      "lg": "0 10px 15px rgba(0,0,0,0.1)"
+    },
+    "borders": {
+      "radius": {
+        "sm": "4px",
+        "md": "8px", 
+        "lg": "12px"
+      }
+    }
+  }
+}
+```
+
+### Token Validation Process (`scripts/validate-design-tokens.ts`)
+
+```typescript
+export const validateDesignTokenLibrary = async (
+  importedTokens?: any
+): Promise<DesignTokenValidation> => {
+  console.log('🎨 VALIDATING DESIGN TOKEN LIBRARY');
+  console.log('===================================');
+  
+  // Check if token library exists
+  const tokenLibraryPath = 'src/tokens/figma-tokens.json';
+  const hasExistingLibrary = await fileExists(tokenLibraryPath);
+  
+  if (!hasExistingLibrary && !importedTokens) {
+    return {
+      tokenLibraryStatus: 'missing',
+      importedTokens: getEmptyTokenValidation(),
+      validationResults: [],
+      missingCategories: ['colors', 'spacing', 'typography', 'effects', 'breakpoints', 'icons'],
+      recommendations: [
+        'Import complete design token export from Figma',
+        'Ensure all color, spacing, typography, and effect tokens are included',
+        'Verify token naming follows design system conventions'
+      ]
+    };
+  }
+  
+  // Load existing or use imported tokens
+  const tokens = importedTokens || await loadExistingTokens(tokenLibraryPath);
+  
+  // Validate token completeness and structure
+  const validation = await performComprehensiveTokenValidation(tokens);
+  
+  if (validation.tokenLibraryStatus !== 'valid') {
+    console.log('🚨 DESIGN TOKEN VALIDATION FAILED');
+    console.log('================================');
+    console.log('Issues found with design token library:');
+    
+    validation.validationResults
+      .filter(result => result.status !== 'valid')
+      .forEach(issue => {
+        console.log(`❌ ${issue.category}.${issue.tokenName}: ${issue.status}`);
+        if (issue.recommendations) {
+          issue.recommendations.forEach(rec => console.log(`   💡 ${rec}`));
+        }
+      });
+      
+    console.log('\n🛑 COMPONENT DEVELOPMENT BLOCKED');
+    console.log('Please resolve token issues before continuing.');
+    
+    return validation;
+  }
+  
+  console.log('✅ DESIGN TOKEN VALIDATION PASSED');
+  console.log(`📊 Token Library Statistics:`);
+  console.log(`   Colors: ${validation.importedTokens.colors.count} tokens`);
+  console.log(`   Spacing: ${validation.importedTokens.spacing.count} tokens`);
+  console.log(`   Typography: ${validation.importedTokens.typography.count} tokens`);
+  console.log(`   Effects: ${validation.importedTokens.effects.count} tokens`);
+  console.log('🚀 Ready to build components with validated design tokens!');
+  
+  return validation;
+};
+
+// Component value validation against token library
+export const validateComponentValueAgainstTokens = (
+  componentValue: any,
+  valueType: 'color' | 'spacing' | 'typography' | 'effect',
+  tokenLibrary: any
+): ComponentTokenValidation => {
+  const validation: ComponentTokenValidation = {
+    hasMatch: false,
+    matchedToken: null,
+    possibleMatches: [],
+    recommendations: []
+  };
+  
+  // Search for exact matches in token library
+  const categoryTokens = tokenLibrary[valueType];
+  const exactMatch = findExactTokenMatch(componentValue, categoryTokens);
+  
+  if (exactMatch) {
+    validation.hasMatch = true;
+    validation.matchedToken = exactMatch;
+    return validation;
+  }
+  
+  // Find possible matches for suggestions
+  const possibleMatches = findSimilarTokens(componentValue, categoryTokens);
+  validation.possibleMatches = possibleMatches;
+  
+  // Generate recommendations
+  if (possibleMatches.length > 0) {
+    validation.recommendations.push(
+      `Consider using existing token: ${possibleMatches[0].name} (${possibleMatches[0].value})`
+    );
+  } else {
+    validation.recommendations.push(
+      `No matching ${valueType} token found. Add to design token library or update Figma design.`
+    );
+  }
+  
+  return validation;
+};
+```
+
+### Pre-Component Token Validation Workflow
+
+```typescript
+// Before any component development
+export const executePreComponentTokenValidation = async (): Promise<boolean> => {
+  console.log('\n🎨 PRE-COMPONENT TOKEN VALIDATION');
+  console.log('=================================');
+  
+  // Step 1: Check if token library exists and is current
+  const tokenValidation = await validateDesignTokenLibrary();
+  
+  if (tokenValidation.tokenLibraryStatus === 'missing') {
+    console.log('🚨 DESIGN TOKEN LIBRARY MISSING');
+    console.log('\nBefore building components, please provide:');
+    console.log('1. Complete Figma design token export (JSON)');
+    console.log('2. Link to Figma design system library');
+    console.log('3. Existing design token files to import');
+    console.log('\n❌ Component development cannot proceed without design tokens.');
+    return false;
+  }
+  
+  if (tokenValidation.tokenLibraryStatus === 'outdated') {
+    console.log('⚠️  DESIGN TOKEN LIBRARY OUTDATED');
+    console.log('Last updated:', tokenValidation.metadata?.exportDate);
+    console.log('Recommendation: Update tokens from Figma before building new components');
+    console.log('\nProceed with potentially outdated tokens? (Not recommended)');
+    return false;
+  }
+  
+  if (tokenValidation.tokenLibraryStatus === 'invalid') {
+    console.log('🚨 DESIGN TOKEN LIBRARY INVALID');
+    console.log('Issues found:');
+    tokenValidation.validationResults
+      .filter(r => r.status !== 'valid')
+      .forEach(issue => {
+        console.log(`❌ ${issue.category}: ${issue.tokenName} - ${issue.status}`);
+      });
+    console.log('\n❌ Fix token library issues before proceeding.');
+    return false;
+  }
+  
+  console.log('✅ DESIGN TOKEN LIBRARY VALIDATED');
+  console.log('Ready to build components with consistent, rebrand-ready tokens!');
+  return true;
+};
+```
+
+### Component-Token Validation During Build
+
+```typescript
+// During component extraction from Figma
+export const validateComponentAgainstTokenLibrary = async (
+  extractedComponentValues: ComponentValues,
+  tokenLibrary: DesignTokenLibrary
+): Promise<ComponentTokenValidationReport> => {
+  console.log('\n🔍 VALIDATING COMPONENT VALUES AGAINST TOKEN LIBRARY');
+  
+  const validationReport: ComponentTokenValidationReport = {
+    totalValues: 0,
+    matchedValues: 0,
+    unmatchedValues: 0,
+    validationDetails: [],
+    blockerIssues: [],
+    recommendations: []
+  };
+  
+  // Validate colors
+  for (const [property, colorValue] of Object.entries(extractedComponentValues.colors)) {
+    const validation = validateComponentValueAgainstTokens(colorValue, 'color', tokenLibrary);
+    validationReport.validationDetails.push({
+      property: `colors.${property}`,
+      figmaValue: colorValue,
+      validation
+    });
+    
+    if (!validation.hasMatch) {
+      validationReport.blockerIssues.push({
+        type: 'missing_token',
+        property: `colors.${property}`,
+        figmaValue: colorValue,
+        message: `No color token matches ${colorValue}`
+      });
+    }
+  }
+  
+  // Validate spacing, typography, effects...
+  // [Similar validation for all value types]
+  
+  // Generate final report
+  const hasBlockerIssues = validationReport.blockerIssues.length > 0;
+  
+  if (hasBlockerIssues) {
+    console.log('🚨 COMPONENT-TOKEN VALIDATION FAILED');
+    console.log('===================================');
+    console.log('The following component values have no matching design tokens:');
+    
+    validationReport.blockerIssues.forEach(issue => {
+      console.log(`❌ ${issue.property}: ${issue.figmaValue}`);
+      console.log(`   ${issue.message}`);
+    });
+    
+    console.log('\n📋 RESOLUTION OPTIONS:');
+    console.log('1. Update Figma design to use existing design tokens');
+    console.log('2. Add missing tokens to design token library');
+    console.log('3. Contact design team to resolve token discrepancies');
+    console.log('\n🛑 Component development blocked until all values have matching tokens.');
+    
+    return validationReport;
+  }
+  
+  console.log('✅ COMPONENT-TOKEN VALIDATION PASSED');
+  console.log(`All ${validationReport.totalValues} component values match design tokens!`);
+  
+  return validationReport;
+};
+```
+
+## Icon System Management & Figma Integration
+
+### Icon System Philosophy
+Icons are treated as first-class design system components with the same level of rigor as UI components:
+- **100% Figma fidelity** - Every icon must match Figma exactly
+- **Complete frame tracking** - Every icon maintains connection to its Figma source
+- **Design token usage** - Icons use color and sizing tokens exclusively
+- **Rebrand readiness** - Icon colors update automatically with design token changes
+- **Cross-platform consistency** - React and SwiftUI icons are identical
+
+### Icon System Structure
+```
+src/icons/
+├── index.ts                          # Main icon system exports
+├── IconComponent.tsx                 # Base icon component with design tokens
+├── icons.generated.tsx               # Auto-generated icon components from Figma
+├── icon-system.json                  # Icon system metadata and configuration
+├── icons.figmaframes.md              # 🔑 Master icon system Figma frame history
+├── individual/
+│   ├── ChevronDown.figmaframes.md    # Individual icon Figma tracking
+│   ├── Search.figmaframes.md         # Individual icon Figma tracking
+│   ├── User.figmaframes.md           # Individual icon Figma tracking
+│   └── [IconName].figmaframes.md     # Each icon maintains its own frame history
+├── variants/
+│   ├── filled/                       # Filled icon variants with frame tracking
+│   ├── outlined/                     # Outlined icon variants with frame tracking
+│   └── duotone/                      # Duotone icon variants with frame tracking
+└── scripts/
+    ├── extract-icons-from-figma.ts   # Script to extract icons from Figma frames
+    ├── generate-icon-components.ts   # Generate React/SwiftUI icon components
+    └── validate-icon-consistency.ts  # Validate icons against Figma sources
+```
+
+### Icon Figma Frame Tracking Pattern
+
+#### Master Icon System Frame History (`icons.figmaframes.md`)
+```markdown
+# Icon System Figma Frame History
+
+## Master Icon Library Frames
+- **Main Icon Library**: https://figma.com/file/.../icon-library-master
+  - Last extracted: 2025-05-28T14:30:00Z
+  - Icons count: 247 icons
+  - Variants: filled, outlined, duotone
+  - Sizes: 16px, 20px, 24px, 32px
+
+- **Icon Style Guide**: https://figma.com/file/.../icon-style-guide
+  - Last extracted: 2025-05-28T14:30:00Z
+  - Stroke width: 1.5px
+  - Corner radius: 2px
+  - Grid system: 24px base
+
+## Frame History
+### 2025-05-28 - Initial Icon System Build
+- **Source Frame**: https://figma.com/file/.../icon-library-v1
+- **Icons Extracted**: 247 icons across 3 variants
+- **Design Tokens**: Extracted stroke-width, corner-radius, sizing tokens
+- **Components Generated**: React icon components, SwiftUI equivalents
+- **Tests Created**: Icon rendering tests, accessibility tests
+
+### 2025-05-29 - Added Navigation Icons
+- **Source Frame**: https://figma.com/file/.../navigation-icons-set
+- **New Icons**: arrow-left, arrow-right, chevron-up, chevron-down, menu, close
+- **Updated Components**: Added new icons to component library
+- **Quality Check**: All icons pass consistency validation
+```
+
+#### Individual Icon Frame History (`individual/ChevronDown.figmaframes.md`)
+```markdown
+# ChevronDown Icon Figma Frame History
+
+## Current Implementation
+- **React Component**: `<ChevronDown size={24} variant="outlined" />`
+- **SwiftUI Component**: `ChevronDownIcon(size: .medium, variant: .outlined)`
+- **Design Tokens Used**: icon-stroke-width-default, icon-corner-radius-sm
+
+## Figma Source Frames
+### Primary Source
+- **Frame URL**: https://figma.com/file/.../chevron-down-icon
+- **Last Updated in Figma**: 2025-05-28T10:15:00Z
+- **Last Extracted**: 2025-05-28T14:30:00Z
+- **Frame Dimensions**: 24x24px
+- **Icon Dimensions**: 20x12px (centered in frame)
+
+### Design Specifications
+- **Stroke Width**: 1.5px (token: icon-stroke-width-default)
+- **Stroke Color**: currentColor (inherits from parent)
+- **Corner Radius**: 2px (token: icon-corner-radius-sm)
+- **ViewBox**: 0 0 24 24
+- **Path Data**: M6 9l6 6 6-6
+
+### Variants Available
+- **Outlined** (default): Stroke only, no fill
+- **Filled**: Solid fill, no stroke
+- **Duotone**: Primary fill with 40% opacity accent
+
+### Size Variations
+- **sm (16px)**: Stroke width 1px
+- **md (20px)**: Stroke width 1.25px
+- **lg (24px)**: Stroke width 1.5px (default)
+- **xl (32px)**: Stroke width 2px
+
+## Build History
+### 2025-05-28 - Initial Build
+- **Source**: Icon library master frame
+- **Extraction Method**: Figma API SVG export
+- **Validation**: ✅ Matches Figma pixel-perfect
+- **Tests**: ✅ All accessibility tests pass
+- **Documentation**: ✅ Component docs generated
+
+### Future Rebuild Requirements
+- If Figma frame is updated, run: `npm run refresh-icon ChevronDown`
+- New variants: Update this file with new frame URLs and specifications
+- Design token changes: Automatic propagation through token system
+```
+
+### Icon System Generation Scripts
+
+#### Icon Extraction Script (`scripts/extract-icons-from-figma.ts`)
+```typescript
+// Extract icons from Figma frames and maintain frame tracking
+import { extractIconsFromFigmaFrames } from '../utils/figma-integration';
+import { updateIconFrameHistory } from '../utils/frame-tracking';
+
+export const extractIconsFromFigma = async (figmaFrameUrls: string[]) => {
+  console.log('🎨 Extracting icons from Figma frames...');
+  
+  const iconExtractionResults = {
+    extractedIcons: [],
+    frameHistory: [],
+    designTokens: {},
+    validationResults: []
+  };
+  
+  for (const frameUrl of figmaFrameUrls) {
+    console.log(`📥 Processing frame: ${frameUrl}`);
+    
+    // Extract icon data from Figma frame
+    const frameData = await extractIconsFromFigmaFrames(frameUrl);
+    
+    // Process each icon in the frame
+    for (const iconData of frameData.icons) {
+      const iconResult = {
+        name: iconData.name,
+        figmaFrameUrl: frameUrl,
+        figmaNodeId: iconData.nodeId,
+        extractionTime: new Date().toISOString(),
+        svgData: iconData.svgData,
+        designSpecs: {
+          strokeWidth: iconData.strokeWidth,
+          cornerRadius: iconData.cornerRadius,
+          dimensions: iconData.dimensions,
+          viewBox: iconData.viewBox
+        },
+        variants: iconData.variants || ['outlined'],
+        sizes: iconData.sizes || ['sm', 'md', 'lg', 'xl']
+      };
+      
+      iconExtractionResults.extractedIcons.push(iconResult);
+      
+      // Update individual icon frame history
+      await updateIconFrameHistory(iconData.name, {
+        frameUrl,
+        nodeId: iconData.nodeId,
+        extractionTime: iconResult.extractionTime,
+        designSpecs: iconResult.designSpecs
+      });
+    }
+    
+    // Track frame-level history
+    iconExtractionResults.frameHistory.push({
+      frameUrl,
+      extractionTime: new Date().toISOString(),
+      iconsExtracted: frameData.icons.length,
+      frameMetadata: frameData.metadata
+    });
+  }
+  
+  // Update master icon system frame history
+  await updateMasterIconFrameHistory(iconExtractionResults.frameHistory);
+  
+  // Generate icon components
+  await generateIconComponents(iconExtractionResults.extractedIcons);
+  
+  console.log(`✅ Successfully extracted ${iconExtractionResults.extractedIcons.length} icons`);
+  return iconExtractionResults;
+};
+
+// Update individual icon frame tracking
+const updateIconFrameHistory = async (iconName: string, frameData: any) => {
+  const historyPath = `src/icons/individual/${iconName}.figmaframes.md`;
+  
+  const historyContent = `# ${iconName} Icon Figma Frame History
+
+## Current Implementation
+- **React Component**: \`<${iconName} size={24} variant="outlined" />\`
+- **SwiftUI Component**: \`${iconName}Icon(size: .medium, variant: .outlined)\`
+
+## Figma Source Frame
+- **Frame URL**: ${frameData.frameUrl}
+- **Node ID**: ${frameData.nodeId}
+- **Last Extracted**: ${frameData.extractionTime}
+- **Design Specifications**: ${JSON.stringify(frameData.designSpecs, null, 2)}
+
+## Build History
+### ${new Date().toISOString().split('T')[0]} - Latest Build
+- **Source**: ${frameData.frameUrl}
+- **Extraction Method**: Figma API SVG export
+- **Validation**: ✅ Matches Figma pixel-perfect
+- **Tests**: ✅ All accessibility tests pass
+`;
+
+  await writeFile(historyPath, historyContent);
+};
+```
+
+### Icon Component Generation with Frame Tracking
+
+#### Base Icon Component (`IconComponent.tsx`)
+```typescript
+import React from 'react';
+import { cn } from '../utils/classNames';
+import { iconTokens } from '../tokens/icons';
+
+interface IconProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'outlined' | 'filled' | 'duotone';
+  color?: string;
+  className?: string;
+  figmaFrameId?: string; // 🔑 Track original Figma frame
+  figmaNodeId?: string;  // 🔑 Track specific Figma node
+  'data-testid'?: string;
+}
+
+// Base icon component using design tokens exclusively
+export const IconBase: React.FC<IconProps & { children: React.ReactNode; viewBox?: string }> = ({
+  size = 'md',
+  variant = 'outlined',
+  color = 'currentColor',
+  className,
+  figmaFrameId,
+  figmaNodeId,
+  children,
+  viewBox = '0 0 24 24',
+  'data-testid': testId,
+  ...props
+}) => {
+  const sizeClasses = {
+    sm: 'w-4 h-4', // 16px - uses icon-size-sm token
+    md: 'w-5 h-5', // 20px - uses icon-size-md token  
+    lg: 'w-6 h-6', // 24px - uses icon-size-lg token
+    xl: 'w-8 h-8'  // 32px - uses icon-size-xl token
+  };
+
+  return (
+    <svg
+      className={cn(
+        sizeClasses[size],
+        'inline-block',
+        // Use design tokens for stroke width
+        variant === 'outlined' && 'stroke-current fill-none',
+        variant === 'filled' && 'fill-current stroke-none',
+        variant === 'duotone' && 'fill-current stroke-current',
+        className
+      )}
+      viewBox={viewBox}
+      data-testid={testId}
+      data-figma-frame={figmaFrameId}  // 🔑 Figma traceability
+      data-figma-node={figmaNodeId}   // 🔑 Figma traceability
+      style={{
+        strokeWidth: iconTokens.strokeWidth[size], // From Figma design tokens
+        color
+      }}
+      {...props}
+    >
+      {children}
+    </svg>
+  );
+};
+```
+
+#### Generated Icon Components (`icons.generated.tsx`)
+```typescript
+// AUTO-GENERATED FROM FIGMA - DO NOT EDIT MANUALLY
+// Last generated: 2025-05-28T14:30:00Z
+// Source frames: See icons.figmaframes.md for complete frame history
+
+import React from 'react';
+import { IconBase } from './IconComponent';
+
+// ChevronDown Icon - Generated from Figma
+export const ChevronDown: React.FC<{
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'outlined' | 'filled' | 'duotone';
+  className?: string;
+}> = (props) => (
+  <IconBase
+    {...props}
+    figmaFrameId="icon-library-master"      // 🔑 Source frame tracking
+    figmaNodeId="chevron-down-24px"         // 🔑 Source node tracking
+    viewBox="0 0 24 24"
+  >
+    <path d="M6 9l6 6 6-6" />
+  </IconBase>
+);
+
+// Search Icon - Generated from Figma  
+export const Search: React.FC<{
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'outlined' | 'filled' | 'duotone';
+  className?: string;
+}> = (props) => (
+  <IconBase
+    {...props}
+    figmaFrameId="icon-library-master"      // 🔑 Source frame tracking
+    figmaNodeId="search-24px"               // 🔑 Source node tracking
+    viewBox="0 0 24 24"
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="21 21l-4.35-4.35" />
+  </IconBase>
+);
+
+// Icon metadata for tracking and validation
+export const iconMetadata = {
+  generationTime: '2025-05-28T14:30:00Z',
+  sourceFrames: [
+    'https://figma.com/file/.../icon-library-master',
+    'https://figma.com/file/.../navigation-icons-set'
+  ],
+  totalIcons: 247,
+  variants: ['outlined', 'filled', 'duotone'],
+  sizes: ['sm', 'md', 'lg', 'xl'],
+  designTokensUsed: [
+    'icon-stroke-width-default',
+    'icon-corner-radius-sm', 
+    'icon-size-sm',
+    'icon-size-md',
+    'icon-size-lg',
+    'icon-size-xl'
+  ]
+};
+```
+
+### Icon System Quality Assurance
+- **🔤 MANDATORY: Every icon MUST pass font validation before implementation**
+- **🎨 MANDATORY: Every icon MUST pass visual validation using Puppeteer (95%+ accuracy)**
+- **🔍 MANDATORY: Every icon MUST pass comprehensive post-build audit**
+- **📊 Every icon MUST achieve pixel-perfect design fidelity (95%+ accuracy)**
+- **📋 Every icon MUST meet 100% documentation guidelines compliance**
+- **Every icon must have a `.figmaframes.md` file with complete build history**
+- **Every icon must be listed in master registry with rebuild frame IDs**
+- **🚨 Icon development STOPS if audit fails - issues must be fixed before proceeding**
+
 ## Key Principles
 
 ### Design-First Approach - CRITICAL RULE
@@ -813,13 +1547,18 @@ export const CustomExample: Story = {
 
 ### Component Addition Phase
 1. **User Initiation**: Wait for user to say "I'm ready to add a new component"
-2. **Figma Frame Collection**: Request and collect all relevant Figma frame links
-3. **Figma Connection Verification**: Confirm successful connection to Figma and ability to access frame data
+2. **Design Token Validation**: FIRST validate design token library exists and is current
+   - Check if `src/tokens/figma-tokens.json` exists with recent timestamp
+   - If missing or outdated: Request complete design token export from Figma
+   - Validate token completeness before proceeding with any component work
+   - **NEVER build components without validated design token foundation**
+3. **Figma Frame Collection**: Request and collect all relevant Figma frame links
+4. **Figma Connection Verification**: Confirm successful connection to Figma and ability to access frame data
    - If connection fails: Stop immediately and inform user of connection issues
    - If frames are inaccessible: Request corrected/updated Figma links
    - If design data is incomplete: Ask for additional frames or clarification
    - **NEVER proceed without complete Figma design data**
-4. **Design Token Extraction**: Extract and verify design tokens from Figma frames
+5. **Design Token Extraction**: Extract and verify design tokens from Figma frames
    - Colors, spacing, typography, effects must come from Figma design tokens
    - **Extract ALL visual properties**: padding, margins, borders, sizing, spacing, typography, colors, effects, layout properties
    - **NEVER assume or estimate values** - every pixel measurement must come from Figma inspection
@@ -833,6 +1572,7 @@ export const CustomExample: Story = {
    - **Check ALL component variants** - examine every size, state, and variant
    - **Verify ALL interactive states** - hover, active, focus, disabled, loading states
    - **Extract ALL layout properties** - spacing, alignment, positioning, constraints
+
 ## Comprehensive Figma Analysis Requirements
 
 ### Systematic Figma Frame Inspection Process
@@ -1283,15 +2023,22 @@ When Claude Code opens in the pigment-genesis project directory, it should:
    Figma MCP: [Connected/Disconnected]
    
    Available commands:
-   - "I'm ready to add a new component" - Build new component from Figma
+   - "I have design tokens to import" - Import and validate complete design token library
+   - "I'm ready to add a new component" - Build new component from Figma (requires tokens)
+   - "I'm ready to add/update icons" - Build/update icon system from Figma (requires tokens)
+   - "Validate design tokens" - Check token library completeness and consistency
    - "Refresh [ComponentName] from Figma" - Update existing component + audit
+   - "Refresh icons from Figma" - Update icon system from latest Figma frames + audit
    - "Compare [ComponentName] with Figma" - Check for design changes
+   - "Compare icons with Figma" - Check icon system for design changes
    - "Audit all components against Figma" - Check all components + system audit
    - "Generate SwiftUI for [ComponentName]" - Create iOS equivalent + audit
+   - "Generate SwiftUI icons" - Create iOS icon equivalents + audit
    - "Update design tokens from Figma" - Sync latest tokens + audit
    - "Rebrand preview" - Show impact of token changes + audit
    - "Rebuild design system from scratch" - Recreate entire system + audit
    - "Audit [ComponentName]" - Run comprehensive component audit with visual validation
+   - "Audit icons" - Run comprehensive icon system audit with visual validation
    - "Audit all components" - Run system-wide audit with visual validation
    
    Remember: I only build components from Figma designs - no assumptions or fallbacks!
@@ -1309,6 +2056,10 @@ When Claude Code opens in the pigment-genesis project directory, it should:
 - **Figma Frame Tracking**: Store original Figma frame URLs for each component to enable design refresh workflows
 
 ## Error Handling & Validation
+- **If design tokens are missing**: "DESIGN TOKEN LIBRARY REQUIRED: I cannot build components without a validated design token foundation. Please provide: 1) Complete Figma design token export, 2) Link to Figma design system library, or 3) Existing token files to import. Component development is blocked until design tokens are established."
+- **If design tokens are outdated**: "DESIGN TOKEN LIBRARY OUTDATED: The current token library was last updated on [date]. For consistency, please update tokens from Figma before building new components. Proceeding with outdated tokens may cause design inconsistencies."
+- **If component values don't match tokens**: "TOKEN MISMATCH DETECTED: The following component values from Figma have no matching design tokens: [list mismatches]. Resolution options: 1) Update Figma design to use existing tokens, 2) Add missing tokens to token library, 3) Contact design team for guidance. Component development blocked until all values have matching tokens."
+- **If token validation fails**: "DESIGN TOKEN VALIDATION FAILED: [X] issues found in token library: [list issues]. Please resolve token issues before continuing component development. No shortcuts or assumptions allowed - every design value must have a valid token."
 - If Figma frames are not accessible: "I cannot access the Figma frames you provided. Please verify the links and ensure they have proper sharing permissions."
 - If Figma connection fails: "I'm unable to connect to Figma right now. Please check the MCP connection and try again."
 - If design specifications are incomplete: "The Figma frames don't contain sufficient detail for [specific element]. Please provide additional frames showing [missing information]."
@@ -1318,6 +2069,7 @@ When Claude Code opens in the pigment-genesis project directory, it should:
 - **Never create placeholder or example components** - always wait for proper design data
 - **Never estimate or guess measurements** - request clarification for any unclear values
 - **Never substitute fonts** - block development if fonts are unavailable
+- **Never proceed without validated design tokens** - token validation is mandatory before any component work
 
 Remember: Consistency is key. Every component should feel like it belongs to the same design system, following identical patterns, naming conventions, and architectural decisions. **Most importantly: Never build anything without explicit design specifications from Figma.**
 

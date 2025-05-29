@@ -53,15 +53,17 @@ You are an expert design system engineer specializing in building scalable, main
 
 ### 2. Component Development Philosophy
 - Follow **Atomic Design** methodology (Atoms → Molecules → Organisms → Templates → Pages)
-- Use **design tokens exclusively** - never write inline CSS or inline styles
+- **🚨 MANDATORY: Use CVA + Tailwind Architecture** - Follow Button.tsx and Avatar.tsx patterns exactly
+- **NEVER use inline styles** with JavaScript objects (`style={{}}`) or direct token imports
+- **ALWAYS use design token classes** (`bg-neutral-bg-primary`, `text-primary-500`, etc.)
+- **CONSISTENCY IS CRITICAL** - Every component must follow identical architectural patterns
 - Maintain **100% consistency** across all components using shared utilities and patterns
-- Write **TypeScript interfaces** for all props and component APIs
+- Write **TypeScript interfaces** for all props and component APIs extending `VariantProps<typeof componentVariants>`
 - Implement **accessibility best practices** (ARIA, semantic HTML, keyboard navigation)
 - **Build responsive components** - every component must work seamlessly on desktop and mobile
 - **Create SwiftUI equivalents** - generate SwiftUI components from mobile React implementations
 - **Follow DRY principles** - create reusable utilities, hooks, and patterns to avoid code duplication
 - **Build for scale** - abstractions must work for 50-100+ components while remaining readable
-- **NEVER use inline styles** - all styling must come from design tokens and utility classes
 
 ### 3. Documentation, Stories & Testing
 - Write comprehensive **component documentation** alongside each component
@@ -114,7 +116,14 @@ When the user says they're ready to add a new component:
    - **ALLOW CHAT SPECIFICATIONS**: Accept user specifications in chat only if Figma updates aren't feasible
    - **WAIT FOR RESOLUTION**: Do not proceed with implementation until all ambiguities are resolved
    - **RE-EXTRACT IF UPDATED**: If Figma is updated, re-extract design specifications before building
-10. **Build React components systematically** with extracted specifications (zero assumptions)
+10. **🚨 MANDATORY: Follow Component Architecture Pattern**
+   - **BEFORE writing any code**: Review existing components (Button.tsx, Avatar.tsx) for architecture reference
+   - **ALWAYS use CVA (Class Variance Authority)** for component variants - NO EXCEPTIONS
+   - **NEVER use inline styles** with JavaScript objects or semanticColors imports
+   - **ALWAYS use Tailwind CSS classes** that reference design tokens (bg-neutral-bg-primary, text-primary-500, etc.)
+   - **FOLLOW the exact same pattern** as existing components in the design system
+   - **CONSISTENCY CHECK**: Every new component must match the architectural style of Button/Avatar components
+11. **Build React components systematically** with extracted specifications (zero assumptions)
 11. **🚨 MANDATORY: Automated visual verification**
    - **IMMEDIATELY** run `npm run claude-visual-verify ComponentName`
    - **IMMEDIATELY** analyze captured screenshots using Read tool
@@ -148,12 +157,77 @@ When the user says they're ready to add a new component:
 - **EXTRACT design tokens from Figma** - All colors, spacing, typography must come directly from Figma design tokens
 - **BUILD for instant rebrand capability** - Design token changes in Figma should automatically propagate to all components
 
-### Design Tokens Usage
-- **Colors**: Use `tokens.colors.primary[500]` mapped to Tailwind classes - **NEVER hardcode color values**
-- **Spacing**: Use `tokens.spacing.md` mapped to Tailwind spacing scale - **NEVER use arbitrary spacing**
-- **Typography**: Use `tokens.typography.body.large` for consistent text styles - **NEVER hardcode font properties**
-- **Breakpoints**: Use `tokens.breakpoints` for responsive design (mobile-first approach)
-- **CRITICAL**: All design tokens must be extracted directly from Figma and remain connected to their source
+### 🚨 CRITICAL: Design Token Implementation Pattern
+**MANDATORY ARCHITECTURE - NO EXCEPTIONS:**
+
+**1. COMPONENT ARCHITECTURE REQUIREMENTS:**
+- **ALWAYS use Class Variance Authority (CVA)** for component variants
+- **NEVER use inline styles** with JavaScript objects or `style={{}}` attributes
+- **ALWAYS use Tailwind CSS classes** that reference design tokens via CSS custom properties
+- **FOLLOW the exact same pattern** as existing components (Button, Avatar, etc.)
+
+**2. REQUIRED IMPORTS & STRUCTURE:**
+```typescript
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../../../utils/classNames';
+
+// Component variants using CVA - MANDATORY PATTERN
+const componentVariants = cva(
+  [
+    // Base styles using design token classes
+    'bg-neutral-bg-primary',
+    'text-neutral-text-primary'
+  ],
+  {
+    variants: {
+      variant: {
+        primary: ['bg-interactive-bg-bold', 'text-interactive-text-on-fill'],
+        secondary: ['bg-neutral-bg-primary', 'border-interactive-border-bold']
+      },
+      size: {
+        small: ['text-sm', 'px-2', 'py-1'],
+        large: ['text-lg', 'px-4', 'py-2']
+      }
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'small'
+    }
+  }
+);
+```
+
+**3. DESIGN TOKEN CLASS USAGE:**
+- **Colors**: `bg-interactive-bg-bold`, `text-neutral-text-primary`, `border-primary-500`
+- **Spacing**: Use standard Tailwind classes `px-4`, `py-2`, `gap-2`, `mb-1`
+- **Typography**: `text-[14px]`, `font-medium`, `leading-[1.25]`
+- **States**: Map to design token classes via CVA variants
+
+**4. FORBIDDEN PATTERNS:**
+```typescript
+// ❌ NEVER DO THIS - Inline styles with JS objects
+style={{ color: semanticColors.neutral.text.primary }}
+style={{ backgroundColor: colors.primary[500] }}
+
+// ❌ NEVER DO THIS - Direct token imports for styling
+import { semanticColors } from '../../../tokens/colors';
+
+// ✅ ALWAYS DO THIS - CVA + Tailwind classes
+className={cn(componentVariants({ variant, size }))}
+className="bg-neutral-bg-primary text-interactive-text-default"
+```
+
+**5. CONSISTENCY VERIFICATION:**
+- **Before building any component**: Review Button.tsx and Avatar.tsx for pattern reference
+- **Every component MUST follow** the exact same CVA + Tailwind architecture
+- **No exceptions** - inline styles break the design system architecture
+
+### Design Token Class Reference
+- **Backgrounds**: `bg-neutral-bg-primary`, `bg-interactive-bg-bold`, `bg-error-500`
+- **Text Colors**: `text-neutral-text-primary`, `text-interactive-text-on-fill`, `text-error-500`
+- **Borders**: `border-neutral-border-strong`, `border-primary-500`, `border-error-500`
+- **Interactive States**: Managed through CVA variants, not inline styles
+- **CRITICAL**: All classes map to CSS custom properties in tailwind.config.js
 
 ### Responsive Design Requirements
 - **Mobile-First Approach**: Design for mobile screens first, then enhance for larger screens
@@ -213,11 +287,18 @@ When the user says they're ready to add a new component:
 ## Session Startup Checklist
 1. Read this entire CLAUDE.md file
 2. Review CONTRIBUTING.md for current project status
-3. Check latest component patterns and build history
+3. **🚨 MANDATORY: Review component architecture patterns**
+   - **Read `docs/component-architecture-pattern.md`** - The complete architectural reference
+   - **Read Button.tsx** to understand CVA + Tailwind pattern
+   - **Read Avatar.tsx** to see design token class usage  
+   - **Check tailwind.config.js** to understand design token class mappings
+   - **MEMORIZE the forbidden patterns** - No inline styles, no semanticColors imports
 4. Confirm Figma MCP connection is active
 5. Run `npm run validate-tokens` to verify token readiness
-6. Review extraction guide: `npm run extraction-guide`
-7. Wait for user to say "I'm ready to add a new component"
+6. **🚨 CRITICAL: Run `npm run validate-architecture`** to see current architectural compliance
+7. Review extraction guide: `npm run extraction-guide`
+8. **🚨 COMMIT TO CONSISTENCY**: Every new component will follow the exact same CVA + Tailwind pattern
+9. Wait for user to say "I'm ready to add a new component"
 
 ## Never Create Components Without Figma
 I only build components from Figma designs - no assumptions or fallbacks!

@@ -12,3 +12,6 @@ export type { DropdownProps, DropdownOption } from './Dropdown';
 
 export { Icon } from './Icon';
 export type { BaseIconProps, IconProps, IconName, CoreIconName, UniqueIconName, IconCategory } from './Icon';
+
+export { Input } from './Input';
+export type { InputProps } from './Input';
